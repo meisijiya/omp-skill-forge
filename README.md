@@ -252,7 +252,7 @@ git checkout manifest/selection.json
 本地同步：
 
 ```bash
-# 抓上游 HEAD → 刷新 pool/ → 写 pin → 定点改写 groups.json 的 upstream.commit → 重放 selection
+# 抓上游 HEAD → 刷新 pool/ → 写 pin（三处镜像）→ 重放 selection
 python tools/sync_upstream.py
 
 # 只刷新 pool/ 与 pin，不重放选择
@@ -279,12 +279,22 @@ CI 用 `GITHUB_TOKEN` + `peter-evans/create-pull-request` 自动开 PR（分支
 `full` / `java-python` / `lite` 三个 profile 依次物化 + 校验。上游内容没有变化时同步不产生
 差异，也就不会有 PR —— PR 只在确实有变化时出现。
 
+**pin 只在 `pool/` 内容变化时前进**（ADR-0017）：同步脚本刷新完 `pool/` 后先比摘要，
+内容与记录值相同就保持原 pin，`manifest/` 与 `NOTICE.md` 都不会动；只有上游改了
+`pi/core/` 或 `agents/` 才把 pin 推到新的 commit。pin 一动，`manifest/asset_versions.json`
+里记的 tree oid 就过期了（台账记的是资产在 pin 提交下的样子），所以脚本会打印重录命令，
+CI 也会在同步之后自动跑 `python tools/upstream_versions.py record --source ecc`。
+
+上游**新增或删除**资产时定时任务会红：`manifest/groups.json` 声明的成员必须与 `pool/`
+完全一致（ADR-0004），增删资产要人工在 `manifest/groups.json` 补声明，脚本不替人做选择。
+
 **pin 的唯一事实源是 `manifest/upstream.json`**（字段 `repo` / `commit` / `version` /
 `pool_digest`）。其中 `pool_digest` 是 `pool/` 全部文件内容与相对路径的 sha256 摘要
 （64 位小写 hex），写入端与校验端共用 `tools/sync_upstream.py` 里的同一个函数
 `compute_pool_digest`，不会两套算法。`manifest/groups.json` 顶层的 `upstream` 块
 （`repo` / `version` / `commit` / `skill_source` / `command_source` / `agent_source`）
-是**同步镜像**：由 `sync_upstream.py` 定点改写其中的 `commit`，不是独立事实源。
+与 `NOTICE.md` 顶部四行（上游版本 / commit / 资产计数）都是**同步镜像**：由
+`sync_upstream.py` 定点改写，不是独立事实源；每处改写必须恰好命中一次，命中不到就报错退出。
 
 `tools/sync_upstream.py` 的上游源解析顺序：
 `.upstream/` 本地克隆 → omp marketplace 缓存克隆（`~/.omp/plugins/cache/marketplaces/ecc`）

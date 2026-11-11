@@ -22,5 +22,6 @@
 | [0016](0016-plugin-identity-consolidation.md) | 插件身份收口：远端改名、运维 skill 进仓、TypeScript 入口去重 | accepted | 2026-11-03 |
 | [0017](0017-upstream-pin-advances-on-asset-change.md) | 上游 pin 只在资产内容有变化时推进 | accepted | 2026-11-11 |
 | [0018](0018-mcode-stack-absorption-scope.md) | mcode-stack 审计结论：本轮不吸收，候选与前置条件留档 | accepted | 2026-11-11 |
+| [0019](0019-upstream-pin-mirrors-written-together.md) | 上游 pin 的镜像同源维护，CI 无变更不开 PR | accepted | 2026-11-12 |
 
 这些 ADR 是 fork 自有的仓库文档，不参与物化，也不随 profile 裁剪。

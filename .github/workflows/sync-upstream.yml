@@ -107,6 +107,26 @@ jobs:
           SHA: ${{ steps.target.outputs.commit }}
         run: python tools/sync_upstream.py --checkout "${SHA}" --no-fetch
 
+      # The pin only moves when the vendored pool content actually changed
+      # (ADR-0017), so a run against an unchanged upstream leaves the tree
+      # clean and there is nothing to pull request.  A pin move invalidates
+      # the asset ledger, which records every asset's tree oid at the pinned
+      # commit, so the ledger is re-recorded before the ledger gate runs.
+      - name: Read the resulting pin and re-record the asset ledger
+        id: pin
+        run: |
+          set -euo pipefail
+          PIN="$(python -c 'import json;print(json.load(open("manifest/upstream.json", encoding="utf-8"))["commit"])')"
+          BEFORE="$(git show HEAD:manifest/upstream.json | python -c 'import json,sys;print(json.load(sys.stdin)["commit"])')"
+          echo "commit=${PIN}" >> "$GITHUB_OUTPUT"
+          echo "before=${BEFORE}" >> "$GITHUB_OUTPUT"
+          if [ "${PIN}" != "${BEFORE}" ]; then
+            echo "pin advanced ${BEFORE} -> ${PIN}; re-recording the asset ledger"
+            python tools/upstream_versions.py record --source ecc
+          else
+            echo "pin unchanged (${PIN})"
+          fi
+
       - name: Build the catalog
         run: python tools/build_catalog.py
 
@@ -184,9 +204,24 @@ jobs:
           python tools/build_catalog.py
           git checkout -- manifest/selection.json
 
+      # An upstream commit that only touched CI, scripts or docs leaves the
+      # vendored pool byte identical, so there is no pull request to open.
+      - name: Detect whether the sync changed anything
+        id: changes
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::upstream content is unchanged; nothing to open a pull request for"
+          fi
+
       - name: Collect the change summary
         env:
           SHA: ${{ steps.target.outputs.commit }}
+          PIN: ${{ steps.pin.outputs.commit }}
+          BEFORE: ${{ steps.pin.outputs.before }}
           SOURCE: ${{ steps.target.outputs.source }}
         run: |
           set -euo pipefail
@@ -196,10 +231,16 @@ jobs:
             echo "### Upstream sync"
             echo
             echo "- upstream repo: https://github.com/affaan-m/ECC"
-            echo "- upstream commit: \`${SHA}\`"
+            echo "- upstream pin: \`${PIN}\`"
+            echo "- upstream commit synced: \`${SHA}\`"
             echo "- upstream version: ${VERSION}"
             echo "- pool digest: \`${DIGEST}\`"
             echo "- target source: ${SOURCE}"
+            if [ "${PIN}" = "${BEFORE}" ]; then
+              echo "- pin moved: no (the vendored content is unchanged)"
+            else
+              echo "- pin moved: \`${BEFORE}\` -> \`${PIN}\`"
+            fi
             echo
             echo "### Profile gates"
             echo
@@ -217,14 +258,16 @@ jobs:
           } > "${RUNNER_TEMP}/pr_body.md"
           cat "${RUNNER_TEMP}/pr_body.md"
 
-      # .upstream/ is gitignored, so the action never commits the upstream
-      # clone; it only carries pool/, the pin files and the rebuilt tree.
+      # .upstream/ and .upstream-cache/ are gitignored, so the action never
+      # commits the upstream clones; it only carries pool/, the pin files and
+      # the rebuilt tree.
       - name: Open the sync pull request
+        if: steps.changes.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: chore/sync-upstream-${{ steps.target.outputs.commit }}
+          branch: chore/sync-upstream-${{ steps.pin.outputs.commit }}
           delete-branch: true
-          title: "chore(sync): upstream ECC ${{ steps.target.outputs.commit }}"
-          commit-message: "chore(sync): upstream ECC ${{ steps.target.outputs.commit }}"
+          title: "chore(sync): upstream ECC ${{ steps.pin.outputs.commit }}"
+          commit-message: "chore(sync): upstream ECC ${{ steps.pin.outputs.commit }}"
           body-path: ${{ runner.temp }}/pr_body.md

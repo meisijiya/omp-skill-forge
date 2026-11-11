@@ -33,6 +33,7 @@ UPSTREAM_DIR = os.path.join(ROOT, ".upstream")
 POOL = os.path.join(ROOT, "pool")
 UPSTREAM_MANIFEST = os.path.join(ROOT, "manifest", "upstream.json")
 GROUPS_MANIFEST = os.path.join(ROOT, "manifest", "groups.json")
+NOTICE = os.path.join(ROOT, "NOTICE.md")
 REPO_URL = "https://github.com/affaan-m/ECC"
 MARKETPLACE_CACHE = os.path.join(
     os.path.expanduser("~"), ".omp", "plugins", "cache", "marketplaces", "ecc"
@@ -218,6 +219,89 @@ def update_groups_upstream(commit, version=None):
         return
     with open(GROUPS_MANIFEST, "w", encoding="utf-8", newline="") as f:
         f.write(text[:start] + new_block + text[end:])
+
+
+def read_recorded_manifest():
+    """manifest/upstream.json as recorded (commit / version / pool_digest)."""
+    if not os.path.isfile(UPSTREAM_MANIFEST):
+        return {}
+    try:
+        with open(UPSTREAM_MANIFEST, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError) as exc:
+        warn(f"cannot read {UPSTREAM_MANIFEST}: {exc}")
+        return {}
+
+
+def pool_counts():
+    """Asset counts of the vendored pool: (skills, commands, agents)."""
+    def count(kind):
+        d = os.path.join(POOL, kind)
+        if not os.path.isdir(d):
+            return 0
+        if kind == "skills":
+            return sum(
+                1 for n in os.listdir(d)
+                if os.path.isfile(os.path.join(d, n, "SKILL.md"))
+            )
+        return sum(1 for n in os.listdir(d) if n.endswith(".md"))
+    return count("skills"), count("commands"), count("agents")
+
+
+def update_notice(commit, version, counts):
+    """Rewrite the upstream block of NOTICE.md so it mirrors the pin.
+
+    NOTICE.md is the third mirror of the pin: the commit id, the upstream
+    version and the asset counts are all derived from the pinned upstream
+    commit.  Each value is patched in place; a pattern that does not match
+    exactly once is a hard error, because a silently missed line would let
+    NOTICE.md drift away from the pin again.
+    """
+    skills, commands, agents = counts
+    with open(NOTICE, encoding="utf-8", newline="") as f:
+        original = f.read()
+    text = original
+
+    def rewrite(pattern, build, what):
+        nonlocal text
+        matches = list(re.finditer(pattern, text, re.MULTILINE))
+        if len(matches) != 1:
+            raise SystemExit(
+                f"{NOTICE}: expected exactly one {what}, found {len(matches)}"
+            )
+        m = matches[0]
+        text = text[:m.start()] + build(m) + text[m.end():]
+
+    rewrite(
+        r"^(- 上游版本：).*$",
+        lambda m: m.group(1) + version,
+        "upstream version line",
+    )
+    rewrite(
+        r"^(- 上游 commit：`)[0-9a-f]{40}(`.*)$",
+        lambda m: m.group(1) + commit + m.group(2),
+        "upstream commit line",
+    )
+    # The NOTICE prose uses full width parentheses; they are spelled as
+    # \uff08 / \uff09 escapes so that an editor folding them into ASCII
+    # parentheses cannot break the pattern.
+    rewrite(
+        r"^(- 上游内容来源：仓库的 `pi/core/`\uff08)(\d+)( skills \+ )(\d+)( commands)",
+        lambda m: m.group(1) + str(skills) + m.group(3) + str(commands) + m.group(5),
+        "upstream skill/command count line",
+    )
+    rewrite(
+        r"^(  与 `agents/`\uff08)(\d+)( 个 agent 定义\uff09。)$",
+        lambda m: m.group(1) + str(agents) + m.group(3),
+        "upstream agent count line",
+    )
+
+    if text == original:
+        print(f"NOTICE.md already mirrors the pin {commit[:12]}")
+        return
+    with open(NOTICE, "w", encoding="utf-8", newline="") as f:
+        f.write(text)
+    print(f"NOTICE.md upstream block rewritten for pin {commit[:12]}")
 
 
 # --------------------------------------------------------------------------
@@ -574,17 +658,39 @@ def refresh_pool(path, report, commit, version):
                     copy_file(s, os.path.join(dst, name))
         report.append(f"{kind}: +{added} ~{changed} -{removed}")
 
+    digest = compute_pool_digest(POOL)
+    recorded = read_recorded_manifest()
+    recorded_digest = recorded.get("pool_digest")
+    recorded_commit = recorded.get("commit")
+
+    # The pin describes the vendored content, not the upstream commit count:
+    # it only moves when the pool content actually changed (ADR-0017).
+    if recorded_digest is not None and recorded_digest == digest:
+        pin_commit = recorded_commit or commit
+        pin_version = recorded.get("version") or version or "unknown"
+        print("pool content unchanged: the recorded pin stays where it is")
+    else:
+        pin_commit = commit
+        pin_version = version if version is not None else "unknown"
+        if recorded_digest is not None:
+            print("pool content changed: the pin advances to the synced commit")
+
     meta = {
         "repo": REPO_URL,
-        "commit": commit,
-        "version": version if version is not None else "unknown",
-        "pool_digest": compute_pool_digest(POOL),
+        "commit": pin_commit,
+        "version": pin_version,
+        "pool_digest": digest,
     }
     write_upstream_manifest(meta)
-    # The hand written copy in groups.json may not drift away from the pin.
-    # Only commit (and a known version) are patched there.
-    update_groups_upstream(commit, version)
+    # The hand written copies of the pin may not drift away from it.
+    update_groups_upstream(pin_commit, pin_version if pin_version != "unknown" else None)
+    update_notice(pin_commit, pin_version, pool_counts())
     print("upstream:", meta)
+
+    if recorded_commit is not None and pin_commit != recorded_commit:
+        print("pin advanced: re-record the asset ledger with")
+        print("  python tools/upstream_versions.py record --source ecc")
+    return pin_commit, digest
 
 
 def main():

@@ -21,6 +21,15 @@
 - 收纳池从 19 条变 20 条；默认 profile `java-python` 89 → 90 个 skill（65 上游 + 18 收纳 +
   7 自有），`full` 154 → 155。描述 token 约 2.9K，名称 token 约 0.5K。
 
+### Fixed
+
+- **上游同步的定时任务恢复可用**：`.github/workflows/sync-upstream.yml` 连挂三周且从未开过
+  PR——`tools/sync_upstream.py` 推进 pin 时没有同步 `NOTICE.md`，而 pin 门禁要求 `NOTICE.md`
+  引用的 sha 等于 pin。现在 pin 由脚本一次写三处镜像（`manifest/upstream.json`、
+  `manifest/groups.json`、`NOTICE.md`），且只在 `pool/` 内容变化时前进；CI 无变更时不再开 PR，
+  pin 前进后自动重录资产台账。详见
+  [ADR-0019](docs/adr/0019-upstream-pin-mirrors-written-together.md)。
+
 ## [0.5.0] - 2026-11-03
 
 ### Breaking
