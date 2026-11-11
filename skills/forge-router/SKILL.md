@@ -5,7 +5,7 @@ description: 当用户要开工、要决定读哪条 skill 或派哪个 agent �
 
 # 本 fork 的选路表
 
-本 fork 只保留 ECC 的编程子集加两支收纳资产（上游全量 300+ 技能，本 fork 默认 profile 约 86 个：65 条上游 + 17 条收纳 + 4 条自有）。
+本 fork 只保留 ECC 的编程子集加三支收纳资产（上游全量 300+ 技能，本 fork 默认 profile 约 90 个：65 条上游 + 18 条收纳 + 7 条自有）。
 **本表是本 fork 的选路索引**：模型要读哪个 skill、派哪个 agent，以本表为准，
 不要凭上游 ECC 的记忆猜名字——上游有大量技能没有进本 fork。
 
@@ -67,6 +67,7 @@ description: 当用户要开工、要决定读哪条 skill 或派哪个 agent �
 | 改完代码该回归哪些 | `forge-regression-testing` |
 | 测试反复红、是不是 flaky | `forge-test-reliability` |
 | 项目踩过的坑要跨会话记住 | `forge-qa-memory` |
+| 被测功能里有 AI 行为，要设计评测集、校准 judge | `forge-ai-system-testing` |
 | 用例格式、证据分级、风险模型、报告模板、校验脚本 | `forge-core`（共享知识库，其余 QA skill 都引用它，不要单独当工作流用） |
 
 写 Playwright 测试本身读 `forge-e2e-testing`（ECC 的工程模式）；要的是「跑完一整条端到端
@@ -228,6 +229,7 @@ description: 当用户要开工、要决定读哪条 skill 或派哪个 agent �
 | 状态机 / 协议 / 多阶段流程要证明规则不被违反 | `skill://forge-statechart`（仅 full profile） |
 | 读写 `.ts` / `.tsx` | `skill://forge-typescript-patterns`（仅 full profile；严格编译配置、类型设计与窄化） |
 | 测试从需求到报告整条链路怎么走 | `skill://forge-qa`（收纳自 fishzjp/qa-skills，`forge-core` 是它的共享知识库；`lite` 不收） |
+| 被测对象含 AI 行为，要测不确定性、评测集与 judge 校准 | `skill://forge-ai-system-testing`（同源 QA 套件；`lite` 不收） |
 
 ---
 

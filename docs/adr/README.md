@@ -20,5 +20,7 @@
 | [0014](0014-qa-skills-absorption.md) | 以收纳池纳入 qa-skills 的 QA 套件，划清与 e2e-testing 的分工 | accepted | 2026-11-03 |
 | [0015](0015-per-asset-upstream-version-ledger.md) | 逐资产的版本台账按内容寻址，同步必须经过物化链路 | accepted | 2026-11-03 |
 | [0016](0016-plugin-identity-consolidation.md) | 插件身份收口：远端改名、运维 skill 进仓、TypeScript 入口去重 | accepted | 2026-11-03 |
+| [0017](0017-upstream-pin-advances-on-asset-change.md) | 上游 pin 只在资产内容有变化时推进 | accepted | 2026-11-11 |
+| [0018](0018-mcode-stack-absorption-scope.md) | mcode-stack 审计结论：本轮不吸收，候选与前置条件留档 | accepted | 2026-11-11 |
 
 这些 ADR 是 fork 自有的仓库文档，不参与物化，也不随 profile 裁剪。

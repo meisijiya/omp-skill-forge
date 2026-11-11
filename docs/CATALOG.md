@@ -7,8 +7,8 @@
 
 | profile | 说明 | skills | commands | agents |
 | --- | --- | --- | --- | --- |
-| `full` | 上游 pi/core 全量技能（去掉与其它插件重复的 5 个）加编程相关 agent。不含命令。token 开销最大，仅在需要冷门技术栈时用。 | 147 | 0 | 49 |
-| `java-python` | Java/Kotlin + Python/Django/FastAPI 主力 + 通用工程规范。面向后端/测试开发日常。 | 82 | 0 | 22 |
+| `full` | 上游 pi/core 全量技能（去掉与其它插件重复的 5 个）加编程相关 agent。不含命令。token 开销最大，仅在需要冷门技术栈时用。 | 148 | 0 | 49 |
+| `java-python` | Java/Kotlin + Python/Django/FastAPI 主力 + 通用工程规范。面向后端/测试开发日常。 | 83 | 0 | 22 |
 | `lite` | 最小可用集：只保留后端核心规范 + Java/Python 主力 + 通用评审 agent。每轮提示开销最低。 | 39 | 0 | 11 |
 
 > 表里的**运行名**是本 fork 物化后实际使用的名字：上游名统一加 `forge-` 前缀（skill / command / agent）。
@@ -170,6 +170,7 @@
 | 收纳 | ✅ `forge-test-reliability` | `test-reliability` | full, java-python |
 | 收纳 | ✅ `forge-core` | `core` | full, java-python |
 | 收纳 | ✅ `forge-qa-memory` | `qa-memory` | full, java-python |
+| 收纳 | ✅ `forge-ai-system-testing` | `ai-system-testing` | full, java-python |
 
 ## Commands
 

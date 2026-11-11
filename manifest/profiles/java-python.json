@@ -18,7 +18,8 @@
     "regression-testing",
     "test-reliability",
     "core",
-    "qa-memory"
+    "qa-memory",
+    "ai-system-testing"
   ],
   "skills": {
     "groups": [

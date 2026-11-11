@@ -144,7 +144,7 @@ RULES = {
     "qa-skills/skills/core/SKILL.md": [
         (r"本目录是框架的公共层：[\s\S]*?单一维护源，多 skill 复用。",
          "本 skill 是 QA 套件的公共层：不定义工作流、不面向用户触发，只被其余 "
-         "12 个 QA skill 按需读取。本 fork 把它作为独立技能分发，共享文档用 "
+         "13 个 QA skill 按需读取。本 fork 把它作为独立技能分发，共享文档用 "
          "`skill://" + refscan.RUNTIME_PREFIX + "core/<file>` 引用，单一维护源、多 skill 复用。",
          "core 目录说明改写为独立技能说明"),
     ],
@@ -182,6 +182,18 @@ RULES = {
          "其余相对路径按本 skill 目录解析。",
          "path-convention note rewritten for the skill URI layout"),
     ],
+    "qa-skills/skills/ai-system-testing/references/eval-design-patterns.md": [
+        (r"^> \*\*路径口径\*\*：.*$",
+         "> **路径口径**：`skill://` 开头的是可直接 read 的技能 URI；"
+         "`references/...` 等其余相对路径按本 skill 目录解析。",
+         "path-convention note rewritten for the skill URI layout"),
+    ],
+    "qa-skills/skills/ai-system-testing/references/judge-calibration.md": [
+        (r"^> \*\*路径口径\*\*：.*$",
+         "> **路径口径**：`skill://` 开头的是可直接 read 的技能 URI；"
+         "`references/...` 等其余相对路径按本 skill 目录解析。",
+         "path-convention note rewritten for the skill URI layout"),
+    ],
     "qa-skills/skills/qa-memory/SKILL.md": [
         (r"宿主的记忆机制（CLAUDE\.md / auto-memory 等）",
          "宿主的记忆机制（AGENTS.md / 宿主记忆等）",
@@ -216,13 +228,13 @@ SOURCE_RULES = {
         # a shared script is executed, so it needs a directory rather than a
         # URI; `<xxx-skill>` is the placeholder idiom ECC itself uses
         (r"python3 \.\./core/scripts/", "python3 <{prefix}core-skill>/scripts/",
-         "core script call rewritten to the skill-dir placeholder", 5),
+         "core script call rewritten to the skill-dir placeholder", 12),
         # everything else under core/ is read, so a skill URI is what to follow
         (r"\.\./core/", "skill://{prefix}core/",
-         "core shared-file reference rewritten to a skill URI", 141),
+         "core shared-file reference rewritten to a skill URI", 164),
         # single-word names never match the bare-name rule in refscan
         (r"`qa`", "`skill://{prefix}qa`",
-         "bare `qa` rewritten to a skill URI", 19),
+         "bare `qa` rewritten to a skill URI", 20),
         (r"`core`", "`skill://{prefix}core`",
          "bare `core` rewritten to a skill URI", 1),
         (r"`core/methods/`", "`skill://{prefix}core/methods/`",
@@ -230,8 +242,8 @@ SOURCE_RULES = {
         (r"`core/`", "`skill://{prefix}core`",
          "core directory reference rewritten to a skill URI", 5),
         # marketplace-only frontmatter; omp reads name and description alone
-        (r"^slug: .*\n", "", "marketplace-only slug dropped", 13),
-        (r"^displayName: .*\n", "", "marketplace-only displayName dropped", 13),
+        (r"^slug: .*\n", "", "marketplace-only slug dropped", 14),
+        (r"^displayName: .*\n", "", "marketplace-only displayName dropped", 14),
     ],
 }
 

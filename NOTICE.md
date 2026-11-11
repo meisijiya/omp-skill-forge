@@ -53,7 +53,7 @@
 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | MIT，Copyright (c) 2025 Addy Osmani | `absorbed/addyosmani/LICENSE` |
 | [fishzjp/qa-skills](https://github.com/fishzjp/qa-skills) | MIT，Copyright (c) 2026 fishzjp | `absorbed/qa-skills/LICENSE` |
 
-收纳池共 19 条，进入运行树的是 18 条：
+收纳池共 20 条，进入运行树的是 19 条：
 
 - pstack 与 addyosmani：`forge-correct`、`forge-sharpen`、`forge-engineering-principles`
   （由 8 份 principle 快照拼接生成）、`forge-constraint-driven-development`、
@@ -63,7 +63,8 @@
 - qa-skills 的 QA 套件：`forge-qa`、`forge-requirement-analysis`、`forge-test-strategy`、
   `forge-test-case-writing`、`forge-test-case-review`、`forge-exploratory-testing`、
   `forge-automated-e2e-testing`、`forge-api-testing`、`forge-bug-analysis`、
-  `forge-regression-testing`、`forge-test-reliability`、`forge-qa-memory`，以及承载它们
+  `forge-regression-testing`、`forge-test-reliability`、`forge-qa-memory`、
+  `forge-ai-system-testing`（测 AI 功能的不确定性、评测集设计与 judge 校准），以及承载它们
   共享方法、模板与校验脚本的依赖单元 `forge-core`。整套进 `full` 与 `java-python`，
   `lite` 一条不收纳（正文里指向未启用 skill 的反引号裸名会降级为 notice，见
   `docs/adr/0014-qa-skills-absorption.md`）。

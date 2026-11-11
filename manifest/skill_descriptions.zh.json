@@ -2,6 +2,7 @@
   "accessibility": "按 WCAG 2.2 AA 级做无障碍设计审计，覆盖网页与双端。做界面或查合规时用。",
   "agent-introspection-debugging": "给 AI agent 故障做自查并出诊断报告。运行失败要复现定位时用。",
   "ai-first-engineering": "为 AI agent 写大部分代码的团队设计运营模式。定流程、评审门禁或归属规则时用。",
+  "ai-system-testing": "测 AI 功能的不确定性风险、评测集设计与容错断言，含 judge 校准与注入面移交。被测对象含 AI 行为时用。",
   "api-design": "设计生产级 REST 接口，覆盖资源命名、状态码与分页版本管理。写接口或做接口评审时用。",
   "benchmark-optimization-loop": "把提速需求变成有边界的测量优化循环，先建基线再择优。性能慢、要压测或选实现时用。",
   "change-impact": "改动前用证据做影响面分析，改后比对实际差异与计划。跨模块改动、做迁移或改鉴权前用。",

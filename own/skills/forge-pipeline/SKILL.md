@@ -32,11 +32,11 @@ apply_selection + check_adapt + check_refs，最后还原成已提交的 profile
 
 | profile | skill | 组成 |
 | --- | --- | --- |
-| java-python（默认） | 86 | 65 上游 + 17 收纳 + 4 自有 |
-| full | 151 | 129 上游 + 18 收纳 + 4 自有 |
-| lite | 43 | 39 上游 + 0 收纳 + 4 自有 |
+| java-python（默认） | 90 | 65 上游 + 18 收纳 + 7 自有 |
+| full | 155 | 129 上游 + 19 收纳 + 7 自有 |
+| lite | 46 | 39 上游 + 0 收纳 + 7 自有 |
 
-`docs/CATALOG.md` 的 82/146/39 是「上游 + 收纳、不含自有」，与 README 的口径一致。
+`docs/CATALOG.md` 的 83/148/39 是「上游 + 收纳、不含自有」，与 README 的口径一致。
 
 ## Windows 上的坑
 

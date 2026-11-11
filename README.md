@@ -12,8 +12,8 @@
 `tools/deploy.py` 从这里同步过去，omp 通过 `omp plugin link` 指向该安装根。
 仓库名、插件 id、安装根与运行名前缀统一是 `omp-skill-forge` / `forge-`。
 
-默认 profile（`java-python`）下的生效规模：**89 skills + 22 agents + 5 rules**
-（89 = 上游选中的 65 个 + 收纳资产池的 17 个 + 本 fork 自带的 7 个：`forge-router`、发布 /
+默认 profile（`java-python`）下的生效规模：**90 skills + 22 agents + 5 rules**
+（90 = 上游选中的 65 个 + 收纳资产池的 18 个 + 本 fork 自带的 7 个：`forge-router`、发布 /
 可观测性 / 事故响应三条运维 skill，以及更新流水线 / CI 定位 / 收纳第三方 skill 三条
 本插件自己的运维 skill）；本 fork **不发布命令**，
 换 profile 后的规模见「切换 profile」一节的表。
@@ -148,8 +148,8 @@ python tools/check_plugin_isolation.py --toggle-test
 互不遮蔽。skill 侧本来就没有重名，加前缀后同样不重。
 
 判定「本插件有没有泄漏」靠的是差值而不是名字表：同一轮探测里，提示行里的 skill 条目数在
-启用态与禁用态之间的**差值恰好等于本仓的 skill 总数（89）**，少掉的正是这 89 个名字；
-`omp skill list` 同时从 ours=89 变成 ours=0。提示行的总条目数会随别的插件增减而浮动，
+启用态与禁用态之间的**差值恰好等于本仓的 skill 总数（90）**，少掉的正是这 90 个名字；
+`omp skill list` 同时从 ours=90 变成 ours=0。提示行的总条目数会随别的插件增减而浮动，
 所以只认差值，不认某个绝对值。rules 5、agents 22 是逐条按描述比对过的。
 
 禁用只决定「本插件提供哪些资产」，不决定「文件还在不在磁盘上」：`omp plugin disable` 只是把
@@ -209,23 +209,23 @@ python tools/deploy.py
 
 | profile | skills | agents | 适用 |
 | --- | --- | --- | --- |
-| `java-python` | 82 | 22 | 默认。Java/Kotlin + Python/Django/FastAPI + 通用工程规范 + 测试与发布/运维 |
+| `java-python` | 83 | 22 | 默认。Java/Kotlin + Python/Django/FastAPI + 通用工程规范 + 测试与发布/运维 |
 | `lite` | 39 | 11 | 每轮提示开销最低，只做后端核心 |
-| `full` | 147 | 49 | 上游 `pi/core` 全量 + 全部编程 agent，冷门技术栈时用 |
+| `full` | 148 | 49 | 上游 `pi/core` 全量 + 全部编程 agent，冷门技术栈时用 |
 
 表中数字 = 该 profile 从上游 `pool/` 选中的资产 + 收纳资产池的条目（与 `docs/CATALOG.md` 同口径），
-**不含**本 fork 自带资产。收纳条目按 profile 分别是 `full` 18 条、`java-python` 17 条、`lite` 0 条，
+**不含**本 fork 自带资产。收纳条目按 profile 分别是 `full` 19 条、`java-python` 18 条、`lite` 0 条，
 所以物化后实际生效的 skills 数 = 上表数字 + 7（自有 `forge-router`、发布 / 可观测性 /
 事故响应三条运维 skill，以及更新流水线 / CI 定位 / 收纳第三方 skill 三条插件运维 skill）：
-`full` 154、`java-python` 89、`lite` 46。agents 与上表一致，
+`full` 155、`java-python` 90、`lite` 46。agents 与上表一致，
 rules 恒为自有 5 条。本 fork 不发布命令。
 
 各 profile 的收益对比（技能描述进系统提示的部分）：
 
 | profile | 描述 token | 名称 token | 合计 token |
 | --- | --- | --- | --- |
-| `full` | 4,860 | 997 | ~5.9K |
-| `java-python` | 2,825 | 544 | ~3.4K |
+| `full` | 4,904 | 1,003 | ~5.9K |
+| `java-python` | 2,868 | 550 | ~3.4K |
 | `lite` | 1,509 | 289 | ~1.8K |
 
 描述 token 按中文一个字一个 token、其余字符三分之一 token 估算，名称按运行名字符数除以
@@ -234,11 +234,11 @@ rules 恒为自有 5 条。本 fork 不发布命令。
 降到约 1.8K。
 
 前缀本身的开销 = 6 字符 × 被改名的资产数（上游 + 收纳，自有资产的名字本就带前缀）：
-`full` 技能名 +882、`java-python` +492、`lite` +234；agent 名同样带前缀，`java-python` 下 agent 名 +132。
+`full` 技能名 +888、`java-python` +498、`lite` +234；agent 名同样带前缀，`java-python` 下 agent 名 +132。
 
-`full` 物化后实际进系统提示的是 154 个 skill（129 个上游 + 18 个收纳 + 自带的 7 个）。
-收纳资产在其中占约 696 token（18 条中文描述 593 + 运行名 103）；`java-python`
-下收纳 17 条占约 659 token（描述 560 + 运行名 99）。
+`full` 物化后实际进系统提示的是 155 个 skill（129 个上游 + 19 个收纳 + 自带的 7 个）。
+收纳资产在其中占约 747 token（19 条中文描述 637 + 运行名 110）；`java-python`
+下收纳 18 条占约 709 token（描述 604 + 运行名 105）。
 
 切完 profile 若不想把指针改动留在工作区，用下面这条还原（物化/部署脚本都只读它，
 但手工或脚本重写这个 JSON 文件容易改掉缩进或末尾换行，还原后 diff 才干净）：

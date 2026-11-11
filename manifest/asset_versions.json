@@ -3,7 +3,7 @@
   "sources": {
     "pstack": {
       "repo": "https://github.com/backnotprop/pstack",
-      "commit": "25abb38559ddbabec563646224d09eff9a250eca",
+      "commit": "08547969e1dffaa6457ea65141cc62c1d9a2eef1",
       "assets": {
         "correct": {
           "path": "skills/correct",
@@ -22,7 +22,7 @@
         },
         "statechart": {
           "path": "skills/statechart",
-          "tree": "a79a48c6970be3b63d6efefb0a306b7c87de88d0",
+          "tree": "fc8234cff29087bdc1c4a2dc5d2fac6acfa89245",
           "version": null
         },
         "typescript-best-practices": {
@@ -1076,16 +1076,21 @@
     },
     "qa-skills": {
       "repo": "https://github.com/fishzjp/qa-skills",
-      "commit": "f34e82d9342d9e4299dbd5abd5b388ada65f2fd3",
+      "commit": "5053e0400dfa6b6f053da5534af620efbef08dd0",
       "assets": {
+        "ai-system-testing": {
+          "path": "skills/ai-system-testing",
+          "tree": "10d31647209e3f4eeadcf4241a5bb01938eac796",
+          "version": "0.9.0"
+        },
         "api-testing": {
           "path": "skills/api-testing",
-          "tree": "ff5435aab234d634fad04647b9499e92f2d394ac",
+          "tree": "c8d707a9853a13f16b5412ce3d41893bef2d53e2",
           "version": "0.9.0"
         },
         "automated-e2e-testing": {
           "path": "skills/automated-e2e-testing",
-          "tree": "10c06ac285e7237256912c858f320271ed4f8534",
+          "tree": "72e50a40858b04b7c93c9da8a8521b95ceec931b",
           "version": "0.9.0"
         },
         "bug-analysis": {
@@ -1095,17 +1100,17 @@
         },
         "core": {
           "path": "skills/core",
-          "tree": "9e4db6afe180093d86e36ed6cd8fbc3ffb44957b",
+          "tree": "10d9784360cdec40c8ba98b86c56bfc0aa3b24ac",
           "version": "0.9.0"
         },
         "exploratory-testing": {
           "path": "skills/exploratory-testing",
-          "tree": "f0ec469b8b2fcf7b61dcd0aadbd588ea9c784309",
+          "tree": "35ec573da6e6b040d9eb8abbbd265a5dbfd3fac3",
           "version": "0.9.0"
         },
         "qa": {
           "path": "skills/qa",
-          "tree": "df4e21bb771443f21b38721faa12168606182758",
+          "tree": "bda4e86bc19b3abcccbcd6ff3cee2dc833e44fda",
           "version": "0.9.0"
         },
         "qa-memory": {
@@ -1125,12 +1130,12 @@
         },
         "test-case-review": {
           "path": "skills/test-case-review",
-          "tree": "17fc768601c0a05427720904e5ad0319ddbebe68",
+          "tree": "678cf69da35433543cafa325128c7d82f100c4a8",
           "version": "0.9.0"
         },
         "test-case-writing": {
           "path": "skills/test-case-writing",
-          "tree": "9a350cae867e215f9a2b2b315f129660d66c1e9f",
+          "tree": "f2e0ce07ee72fe7f5fd6a78bc5d10df894e34a5b",
           "version": "0.9.0"
         },
         "test-reliability": {
@@ -1140,7 +1145,7 @@
         },
         "test-strategy": {
           "path": "skills/test-strategy",
-          "tree": "ee7ce1e2ce6ba198ab28cda409374e69e585c3fb",
+          "tree": "fa9b3ddee8149b3edaeb7e5c03df7dd70d2c27b7",
           "version": "0.9.0"
         }
       }

@@ -18,7 +18,8 @@
       "regression-testing",
       "test-reliability",
       "core",
-      "qa-memory"
+      "qa-memory",
+      "ai-system-testing"
     ],
     "skills": {
       "groups": [
@@ -99,7 +100,7 @@
   "counts": {
     "skills": 65,
     "skills_own": 7,
-    "skills_absorbed": 17,
+    "skills_absorbed": 18,
     "commands": 0,
     "agents": 22,
     "rules": 5

@@ -3,6 +3,24 @@
 本文件记录本插件的对外变更，格式按 Keep-a-Changelog，版本号遵循 SemVer。
 版本号记在 `package.json` 的 `version`，发布 tag 一律用 `v<semver>`。
 
+## [Unreleased]
+
+### Added
+
+- **收纳 qa-skills 的 `ai-system-testing`**：测 AI 功能的不确定性风险、评测集与 rubric 设计、
+  容错断言、judge 校准与注入面移交，进 `full` 与 `java-python` profile。
+  上游 qa-skills 新增这条后 `qa`、`core`、`core/test-type-matrix` 都引用它，随源整体接纳。
+- **收纳池 pin 前进**：pstack → `0854796`（`forge-statechart` 的脚本改用 CRLF 安全的切行与
+  win32 `taskkill`），qa-skills → `5053e04`（8 条 skill 正文更新，`core` 新增
+  `scripts/case_lint.py` 与 `scripts/report_meta_check.py`）。
+- **上游 pin 只在资产内容有变化时推进**（[ADR-0017](docs/adr/0017-upstream-pin-advances-on-asset-change.md)）：
+  ECC 与 addyosmani 的资产 tree oid 未变，本轮不动 pin。
+
+### Changed
+
+- 收纳池从 19 条变 20 条；默认 profile `java-python` 89 → 90 个 skill（65 上游 + 18 收纳 +
+  7 自有），`full` 154 → 155。描述 token 约 2.9K，名称 token 约 0.5K。
+
 ## [0.5.0] - 2026-11-03
 
 ### Breaking
