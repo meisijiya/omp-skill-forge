@@ -36,6 +36,14 @@
   `NOTICE.md` 不再被写成「上游版本：unknown」，与 `manifest/groups.json` 的处理一致。
 - **ADR-0014 的命中数补修订说明**：该文记录的是 2026-11-03 的数字（命中数 5 / 141 / 19 / 13、
   146 处引用、收纳 19 条），上游前进后已过时，文中加了一节列出现状与真源。
+- **QA 套件里的执行指令不再被改成只读 URI**：上游 qa-skills 自 `5053e04` 起有 10 处不带解释器的
+  脚本路径（`` `../core/scripts/x.py` ``），它们是「运行 … 无错误（退出码 0）」这类执行指令，
+  却被通用 `../core/` 规则改写成了 `skill://forge-core/scripts/x.py`——URI 跑不了。新增一条整源
+  规则，裸路径改写成可执行占位 `python3 <forge-core-skill>/scripts/x.py`，涉及 `qa`、
+  `test-case-review`、`test-case-writing` 三条 skill 与 `core` 的两份说明。
+- **上游 pin 的三处镜像改成先算后写**：`sync_upstream.py` 先算出三份新文本并全部通过模式校验，
+  再统一落盘。此前 `NOTICE.md` 的校验失败会留下 `manifest/upstream.json` 与 `manifest/groups.json`
+  已改写、`NOTICE.md` 仍旧值的半写状态，与 ADR-0004「脚本报错即不产生半写状态」相反。
 
 ## [0.5.0] - 2026-11-03
 

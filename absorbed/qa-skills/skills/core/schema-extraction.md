@@ -54,7 +54,7 @@ title / steps / expected 等字段值含引号或冒号时必须转义——双�
 
 ## 抽取后校验（强烈建议）
 
-抽取/修订重抽后运行 `skill://forge-core/scripts/validate_schema.py`（无第三方依赖；脚本随本 skill 的 scripts 目录分发）：
+抽取/修订重抽后运行 `python3 <forge-core-skill>/scripts/validate_schema.py`（无第三方依赖；脚本随本 skill 的 scripts 目录分发）：
 
 ```bash
 # 基础校验：YAML 可解析（转义纪律）+ TC 编号一致性 + 占位符检查

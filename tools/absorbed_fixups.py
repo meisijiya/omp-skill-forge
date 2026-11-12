@@ -229,9 +229,15 @@ SOURCE_RULES = {
         # URI; `<xxx-skill>` is the placeholder idiom ECC itself uses
         (r"python3 \.\./core/scripts/", "python3 <{prefix}core-skill>/scripts/",
          "core script call rewritten to the skill-dir placeholder", 12),
+        # upstream also writes the script path without an interpreter (10
+        # places since 5053e04).  Those are run instructions too ("运行 … 无错误
+        # （退出码 0）"), so they get the executable placeholder, not a URI:
+        # a URI cannot be run, and the instruction would be unfollowable.
+        (r"\.\./core/scripts/", "python3 <{prefix}core-skill>/scripts/",
+         "bare core script path rewritten to the executable placeholder", 10),
         # everything else under core/ is read, so a skill URI is what to follow
         (r"\.\./core/", "skill://{prefix}core/",
-         "core shared-file reference rewritten to a skill URI", 164),
+         "core shared-file reference rewritten to a skill URI", 154),
         # single-word names never match the bare-name rule in refscan
         (r"`qa`", "`skill://{prefix}qa`",
          "bare `qa` rewritten to a skill URI", 20),

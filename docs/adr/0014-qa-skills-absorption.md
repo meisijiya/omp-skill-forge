@@ -87,9 +87,15 @@
 | 本文写的 | 现状 |
 | --- | --- |
 | `core` 之外 12 条 QA skill | 13 条（core + 13 = 14 条） |
-| 命中数 `python3 ../core/scripts/` 5、`../core/` 141、`` `qa` `` 19、`slug` / `displayName` 各 13 | 12 / 164 / 20 / 各 14 |
+| 命中数 `python3 ../core/scripts/` 5、`../core/` 141、`` `qa` `` 19、`slug` / `displayName` 各 13 | 带解释器的脚本 12 处、裸脚本路径 10 处、`../core/` 154 处、`` `qa` `` 20 处、`slug` / `displayName` 各 14 处 |
 | 146 处 `core` 引用 | 164 处 |
 | 收纳 19 条 | 20 条 |
 
 真源是 `tools/absorbed_fixups.py` 里的 `SOURCE_RULES` 期望值，`tools/sync_absorbed.py`
 每次重放都按它校验，不符即失败。
+
+2026-11-13 追加：上游 `5053e04` 起有 10 处**不带解释器**的脚本路径（原文是
+`` `../core/scripts/x.py` ``），它们同样是执行指令（"运行 … 无错误（退出码 0）"）。
+原先这些路径落到通用 `../core/` 规则，被改写成只读 URI `skill://forge-core/scripts/x.py`，
+照文执行跑不了。现在多一条整源规则，把裸路径也改写成可执行占位
+`python3 <forge-core-skill>/scripts/x.py`。

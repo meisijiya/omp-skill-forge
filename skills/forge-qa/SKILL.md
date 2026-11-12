@@ -62,8 +62,8 @@ description: 端到端编排需求分析到测试报告的全流程并可断点�
 续跑先读 `{项目}/流水线状态.md`：**未决区存在用户已回填的裁决时，先按裁决增量修订受影响阶段的产物**（更新需求模型假设、在 `budget_review` 补 `approved_by: 用户` 等——不重跑阶段），再按下述判据续跑；未回填的未决项维持保守分支并保持未决标记，不得当作已裁决。然后检查 `{项目}/` 下已有哪些落盘产物，从**最后一个完整阶段之后**继续，不重做已完成阶段。**阶段完成判据**（阶段 3/4 产物同名，凭判据区分，不凭文件存在性猜测）：
 
 - 阶段 1：`需求模型.md` 存在
-- 阶段 2：`测试策略.md` 存在且 `skill://forge-core/scripts/validate_schema.py` V1–V5 通过（type_scope 含 handoff/blocked 轴或外部执行器时，对应 `专项移交_{轴}_{日期}.yaml` 应已生成）
-- 阶段 3：用例双轨落盘、`skill://forge-core/scripts/case_lint.py {用例markmap}` 无错误（退出码 0）且 `skill://forge-core/scripts/validate_schema.py {用例markmap} {测试用例.schema.yaml}` 通过（**必须双文件参数**——单参数会被当成测试策略校验，报「未找到 type_scope」这种与用例无关的错）
+- 阶段 2：`测试策略.md` 存在且 `python3 <forge-core-skill>/scripts/validate_schema.py` V1–V5 通过（type_scope 含 handoff/blocked 轴或外部执行器时，对应 `专项移交_{轴}_{日期}.yaml` 应已生成）
+- 阶段 3：用例双轨落盘、`python3 <forge-core-skill>/scripts/case_lint.py {用例markmap}` 无错误（退出码 0）且 `python3 <forge-core-skill>/scripts/validate_schema.py {用例markmap} {测试用例.schema.yaml}` 通过（**必须双文件参数**——单参数会被当成测试策略校验，报「未找到 type_scope」这种与用例无关的错）
 - 阶段 4：用例文件末尾含 **test-case-review 落款**的审查记录节「## 审查记录（test-case-review …）」、修订后 `case_lint.py` 仍无错误且 Schema 已重新抽取校验——阶段 3 写时自审的同名「审查记录」节不算数（那是阶段 3 的完成标志，区分两者防续跑时静默跳过独立审查）
 - 阶段 5：`测试报告_{来源}_{日期}.md`（自动路径）或 `手动执行记录_{日期}.md`（手动路径）落盘
 - 阶段 6：`Bug条目_{日期}.md` 中转文件落盘；无 Bug 则在 `{项目}/流水线状态.md` 追加一行「阶段 6：无已确认 Bug，跳过」（跳过/未决等流水线状态统一记此文件——硬规则 3"状态全在文件"的续跑凭据，缺该行视为阶段未到）
@@ -80,7 +80,7 @@ description: 端到端编排需求分析到测试报告的全流程并可断点�
 
 ### 4. 收尾：生成测试报告
 
-全部阶段完成后（或用户要求提前收尾），按 `skill://forge-core/report-template.md`（此时加载）汇总生成 `{项目}/测试报告_{日期}.md`：范围、执行统计（自动运行结果与手动执行记录合并）、Bug 清单（拼装阶段 6 的 `Bug条目_{日期}.md` 并逐条同步状态——有回归结果的按结果更新为已验证关闭/已修复待验证，未回归的保持新建）、风险残留、回归摘要、类型域专项结果按 report-template §7 逐轴归一化回收（handoff / 外部执行 / blocked / exclude）、未闭环事项（含移交 yaml 各轴当前状态与去向）、各阶段产物路径索引、机读摘要片段（按 report-template「机读摘要片段」节生成，供报告聚合系统消费；落盘后跑 `skill://forge-core/scripts/report_meta_check.py {报告}` 校验，退出码 1 须修复）。
+全部阶段完成后（或用户要求提前收尾），按 `skill://forge-core/report-template.md`（此时加载）汇总生成 `{项目}/测试报告_{日期}.md`：范围、执行统计（自动运行结果与手动执行记录合并）、Bug 清单（拼装阶段 6 的 `Bug条目_{日期}.md` 并逐条同步状态——有回归结果的按结果更新为已验证关闭/已修复待验证，未回归的保持新建）、风险残留、回归摘要、类型域专项结果按 report-template §7 逐轴归一化回收（handoff / 外部执行 / blocked / exclude）、未闭环事项（含移交 yaml 各轴当前状态与去向）、各阶段产物路径索引、机读摘要片段（按 report-template「机读摘要片段」节生成，供报告聚合系统消费；落盘后跑 `python3 <forge-core-skill>/scripts/report_meta_check.py {报告}` 校验，退出码 1 须修复）。
 
 ### 5. 交付
 

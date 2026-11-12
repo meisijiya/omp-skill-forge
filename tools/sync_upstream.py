@@ -179,13 +179,16 @@ def _match_brace(text, start):
     raise SystemExit(f"unbalanced braces in {GROUPS_MANIFEST}")
 
 
-def update_groups_upstream(commit, version=None):
-    """Patch the top level `upstream` block of manifest/groups.json.
+def groups_upstream_text(commit, version=None):
+    """The groups.json text with the top level `upstream` block rewritten.
 
     Only `commit` (and `version`, when it is known) are rewritten; every other
     byte of the file is preserved.  A JSON round-trip is not an option here:
     the file is hand formatted (compact member arrays), so re-dumping it
     would reformat the whole document and bury the real change in noise.
+
+    The text is computed, not written, so the caller can validate every
+    mirror before any of them is put on disk.
     """
     with open(GROUPS_MANIFEST, encoding="utf-8", newline="") as f:
         text = f.read()
@@ -214,11 +217,7 @@ def update_groups_upstream(commit, version=None):
     if version is not None:
         new_block = replace_value(new_block, "version", version)
 
-    if new_block == block:
-        print(f"groups.json upstream block already at {commit}")
-        return
-    with open(GROUPS_MANIFEST, "w", encoding="utf-8", newline="") as f:
-        f.write(text[:start] + new_block + text[end:])
+    return text, text[:start] + new_block + text[end:]
 
 
 def read_recorded_manifest():
@@ -248,14 +247,17 @@ def pool_counts():
     return count("skills"), count("commands"), count("agents")
 
 
-def update_notice(commit, version, counts):
-    """Rewrite the upstream block of NOTICE.md so it mirrors the pin.
+def notice_text(commit, version, counts):
+    """The NOTICE.md text with the upstream block rewritten; not written.
 
     NOTICE.md is the third mirror of the pin: the commit id, the upstream
     version and the asset counts are all derived from the pinned upstream
     commit.  Each value is patched in place; a pattern that does not match
     exactly once is a hard error, because a silently missed line would let
     NOTICE.md drift away from the pin again.
+
+    Returns (current text, rewritten text); the caller writes the result
+    once every mirror has been validated.
     """
     skills, commands, agents = counts
     with open(NOTICE, encoding="utf-8", newline="") as f:
@@ -301,10 +303,9 @@ def update_notice(commit, version, counts):
 
     if text == original:
         print(f"NOTICE.md already mirrors the pin {commit[:12]}")
-        return
-    with open(NOTICE, "w", encoding="utf-8", newline="") as f:
-        f.write(text)
-    print(f"NOTICE.md upstream block rewritten for pin {commit[:12]}")
+    else:
+        print(f"NOTICE.md upstream block rewritten for pin {commit[:12]}")
+    return original, text
 
 
 # --------------------------------------------------------------------------
@@ -686,10 +687,24 @@ def refresh_pool(path, report, commit, version):
         "version": pin_version,
         "pool_digest": digest,
     }
+
+    # Compute every mirror first, write them afterwards: a mirror whose
+    # pattern no longer matches must not leave the other two rewritten
+    # (ADR-0004: a failing script reports the problem, it does not leave a
+    # half-written state behind).
+    groups_old, groups_new = groups_upstream_text(
+        pin_commit, pin_version if pin_version != "unknown" else None)
+    notice_old, notice_new = notice_text(pin_commit, pin_version, pool_counts())
+
     write_upstream_manifest(meta)
-    # The hand written copies of the pin may not drift away from it.
-    update_groups_upstream(pin_commit, pin_version if pin_version != "unknown" else None)
-    update_notice(pin_commit, pin_version, pool_counts())
+    if groups_new != groups_old:
+        with open(GROUPS_MANIFEST, "w", encoding="utf-8", newline="") as f:
+            f.write(groups_new)
+    else:
+        print(f"groups.json upstream block already at {pin_commit}")
+    if notice_new != notice_old:
+        with open(NOTICE, "w", encoding="utf-8", newline="") as f:
+            f.write(notice_new)
     print("upstream:", meta)
 
     if recorded_commit is not None and pin_commit != recorded_commit:

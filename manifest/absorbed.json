@@ -108,7 +108,7 @@
       "source": "qa-skills",
       "path": "skills/qa",
       "files": {
-        "SKILL.md": "2107b1e54f2f962ac30bb5fef5bb20c8f8a5dff9cf36a9cbc5c3c75d0460ee6e"
+        "SKILL.md": "7a3a60bac75e4cf1cf0d0e35ebe8ed4a1101508bd9a895a845d4c3ca67cb57d7"
       }
     },
     "requirement-analysis": {
@@ -129,15 +129,15 @@
       "source": "qa-skills",
       "path": "skills/test-case-writing",
       "files": {
-        "SKILL.md": "a61c8baefbeef488ab03af695e55791d5b13ddeb3bd058244b351045e8ddc5ab",
-        "templates/markmap_template.md": "6ef85e270d1651ef5ad1e519eb7d300583cada77a314906e37e71b566fcf5d43"
+        "SKILL.md": "f654b3874409ab2ace1458dfeb3120855a9e82d7d4e3e610f5a4c9ea074596a3",
+        "templates/markmap_template.md": "de5d37a4c1cd93dfb7e16f89ee5ce805cdc13b16188d7a435ee75d037564f4c2"
       }
     },
     "test-case-review": {
       "source": "qa-skills",
       "path": "skills/test-case-review",
       "files": {
-        "SKILL.md": "a5fdfb539a3f33507cb3e932e2cb5489d50d1cf407cfee52d293d9e6c7e4e3cb"
+        "SKILL.md": "24695ed5f3e7cac77dead4495116f8283414f92af6f722d3fff9b223eb011bd6"
       }
     },
     "exploratory-testing": {
@@ -204,12 +204,12 @@
         "pipeline-integration.md": "48074b0ff865b2f46a60128de7b9a374795adfb381c7ba1e8d034673bf395978",
         "report-template.md": "415179aa5b531556cf42060deba21a0282d477d865787ea959a978c7b508417d",
         "risk-model.md": "d520e4e7c7e7038c2f1d2448d6491872f00cb46c4b460c74ea4df8127522cf3a",
-        "schema-extraction.md": "a6fcfd078b11bb2451fa211f298cb915e6edc4714f18b364bbd2d1462d683802",
+        "schema-extraction.md": "2d8d2b51c29a8fb05f2f7f0a253143af4ab16ab21d956eb2a1afa9de2b0fd0a0",
         "scripts/case_lint.py": "1e64a47b131d31f99be6fa3c39420f5ab045008f85d51a0a75c1964c8d8d56e0",
         "scripts/report_meta_check.py": "5434eaeaa2894fe01c4de07d3159dff3d83db16fc9dce969ca88a51045ab23f9",
         "scripts/scan_signals.py": "8e27d9aaca968be73691a97e6d6a0bb4aba9aa65e4c413e3b44a5665ba06ea78",
         "scripts/validate_schema.py": "f5e4093c40aecaf5ac23cca67c6279547faa387100f5f360047a395dcdff79c2",
-        "test-type-matrix.md": "a1085ace76da4cd07afe0d75a806e75f676ae8a7f12d5d859a9a616550aae112",
+        "test-type-matrix.md": "b8544c5bbd6bda20eb69a806f14fa1c39994ebaeab2f862bfef244f42f4d1c08",
         "testing-principles.md": "f29030e051d12cb6b2e42a2afde0f272db994994bd4cd0a882fb16ec0bb27197",
         "triage.md": "ae3e319255344b9b2b0460f95a1c4fa2a001a3b4b6a1aa54ec17d4b0f4dfc99f"
       }
