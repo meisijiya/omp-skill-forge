@@ -27,6 +27,8 @@ pin 是本仓唯一的跨文件事实源，它的镜像有三份：`manifest/ups
    `manifest/upstream.json`、`manifest/groups.json` 的 upstream 块、`NOTICE.md` 顶部四行
    （上游版本 / commit / 资产计数）。NOTICE 的改写是定点替换，每个模式必须恰好命中一次，
    命中不到就非零退出——漏改一处就该让人看见，而不是安静地继续漂。
+   上游该提交没有 `VERSION` 文件时版本沿用已记录的值，三处要么写同一个版本、要么都不写，
+   不能一处写 `unknown` 而另两处留着旧值。
 2. **pin 只在 `pool/` 内容变化时前进**（ADR-0017 判据的自动化实现）：刷新完 `pool/`
    后比摘要，与记录值相同就保持原 pin，`manifest/` 与 `NOTICE.md` 都不动；上游只改了
    CI、脚本、文档时，定时任务绿且不出 PR。

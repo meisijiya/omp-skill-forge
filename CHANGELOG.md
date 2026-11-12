@@ -32,6 +32,10 @@
 - **台账与 pin 的一致性进门禁**：`tools/upstream_versions.py check --offline` 现在比对每个
   来源在 `manifest/asset_versions.json` 里记录的 commit 与它当前的 pin，不一致即失败并提示
   重录——pin 前进后忘记 `record` 不再能悄悄溜过去。
+- **上游没有 VERSION 文件时三处镜像不再各说各话**：pin 推进时版本沿用已记录的值，
+  `NOTICE.md` 不再被写成「上游版本：unknown」，与 `manifest/groups.json` 的处理一致。
+- **ADR-0014 的命中数补修订说明**：该文记录的是 2026-11-03 的数字（命中数 5 / 141 / 19 / 13、
+  146 处引用、收纳 19 条），上游前进后已过时，文中加了一节列出现状与真源。
 
 ## [0.5.0] - 2026-11-03
 

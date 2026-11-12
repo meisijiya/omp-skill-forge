@@ -296,6 +296,7 @@ CI 也会在同步之后自动跑 `python tools/upstream_versions.py record --so
 （`repo` / `version` / `commit` / `skill_source` / `command_source` / `agent_source`）
 与 `NOTICE.md` 顶部四行（上游版本 / commit / 资产计数）都是**同步镜像**：由
 `sync_upstream.py` 定点改写，不是独立事实源；每处改写必须恰好命中一次，命中不到就报错退出。
+上游该提交没有 `VERSION` 文件时版本沿用已记录的值，三处要么写同一个版本、要么都不写。
 
 `tools/sync_upstream.py` 的上游源解析顺序：
 `.upstream/` 本地克隆 → omp marketplace 缓存克隆（`~/.omp/plugins/cache/marketplaces/ecc`）

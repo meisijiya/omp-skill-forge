@@ -272,11 +272,14 @@ def update_notice(commit, version, counts):
         m = matches[0]
         text = text[:m.start()] + build(m) + text[m.end():]
 
-    rewrite(
-        r"^(- 上游版本：).*$",
-        lambda m: m.group(1) + version,
-        "upstream version line",
-    )
+    # 版本未知时不动这一行：人工文档里不该出现英文占位符，且此时
+    # manifest/groups.json 同样不写版本，三处保持「都不写」。
+    if version != "unknown":
+        rewrite(
+            r"^(- 上游版本：).*$",
+            lambda m: m.group(1) + version,
+            "upstream version line",
+        )
     rewrite(
         r"^(- 上游 commit：`)[0-9a-f]{40}(`.*)$",
         lambda m: m.group(1) + commit + m.group(2),
@@ -671,7 +674,9 @@ def refresh_pool(path, report, commit, version):
         print("pool content unchanged: the recorded pin stays where it is")
     else:
         pin_commit = commit
-        pin_version = version if version is not None else "unknown"
+        # 上游该 commit 没有 VERSION 文件时沿用已记录的版本号：三处镜像要么
+        # 写同一个版本，要么都不写，不能一处写 unknown 而另两处留着旧值。
+        pin_version = version if version is not None else (recorded.get("version") or "unknown")
         if recorded_digest is not None:
             print("pool content changed: the pin advances to the synced commit")
 

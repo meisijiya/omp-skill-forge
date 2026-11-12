@@ -77,3 +77,19 @@
   重写规则，而不是让断链静默进运行树。
 - `forge-core` 出现在技能列表里但正文声明「不独立触发」；若模型误触发，产出的只是一份
   方法清单，不改变被测项目。
+
+## 修订说明（2026-11-12）
+
+本文记录的是 2026-11-03 当时的数字。上游 qa-skills 前进到 `5053e04`、并新增
+`ai-system-testing` 之后（[ADR-0017](0017-upstream-pin-advances-on-asset-change.md)），
+以下几处已过时，照本文复核会误判：
+
+| 本文写的 | 现状 |
+| --- | --- |
+| `core` 之外 12 条 QA skill | 13 条（core + 13 = 14 条） |
+| 命中数 `python3 ../core/scripts/` 5、`../core/` 141、`` `qa` `` 19、`slug` / `displayName` 各 13 | 12 / 164 / 20 / 各 14 |
+| 146 处 `core` 引用 | 164 处 |
+| 收纳 19 条 | 20 条 |
+
+真源是 `tools/absorbed_fixups.py` 里的 `SOURCE_RULES` 期望值，`tools/sync_absorbed.py`
+每次重放都按它校验，不符即失败。
