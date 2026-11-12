@@ -228,8 +228,9 @@ rules 恒为自有 5 条。本 fork 不发布命令。
 | `java-python` | 2,868 | 550 | ~3.4K |
 | `lite` | 1,509 | 289 | ~1.8K |
 
-描述 token 按中文一个字一个 token、其余字符三分之一 token 估算，名称按运行名字符数除以
-3.5 估算。描述改成中文之后，三个 profile 的提示行都省下 1.3K 到 3.9K token：
+描述 token 按 `tools/check_zh_descriptions.py` 的 `line_cost()` 估算：中文汉字（不含中文
+标点）一个字一个 token、其余字符除以 3.5；名称按运行名字符数除以 3.5 估算。
+描述改成中文之后，三个 profile 的提示行都省下 1.3K 到 3.9K token：
 `java-python` 从约 5.2K 降到约 3.4K，`full` 从约 9.8K 降到约 5.9K，`lite` 从约 3.1K
 降到约 1.8K。
 
