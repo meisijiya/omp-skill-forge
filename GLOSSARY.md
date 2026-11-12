@@ -20,6 +20,7 @@
 | profile | 一组命名好的资产子集，决定每轮注入的规模。 | preset、tier、套餐、模式 |
 | 选集 | 当前 profile 解析出的具体资产名单。 | 清单、列表、目录 |
 | 上游 pin | 本 fork 当前对齐的上游提交。 | 版本、tag、发行版 |
+| pin 镜像 | 与上游 pin 内容一致的派生副本：`manifest/upstream.json`（事实源）、`manifest/groups.json` 的 upstream 块、`NOTICE.md` 的上游块。三者由同步脚本一次写全。 | 副本、影子文件、备份 |
 | 池摘要 | 上游资产池内容的指纹，用来证明 pin 与内容一致。 | 校验和、哈希和 |
 | omp 适配 | 运行树不携带 Claude Code 这类 harness 假设的状态。 | 移植、迁移、翻译、本地化 |
 | 适配不变式 | 一条关于 omp 适配的可判定命题。 | lint 规则、校验规则、检查项 |
