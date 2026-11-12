@@ -29,6 +29,9 @@
   `manifest/groups.json`、`NOTICE.md`），且只在 `pool/` 内容变化时前进；CI 无变更时不再开 PR，
   pin 前进后自动重录资产台账。详见
   [ADR-0019](docs/adr/0019-upstream-pin-mirrors-written-together.md)。
+- **台账与 pin 的一致性进门禁**：`tools/upstream_versions.py check --offline` 现在比对每个
+  来源在 `manifest/asset_versions.json` 里记录的 commit 与它当前的 pin，不一致即失败并提示
+  重录——pin 前进后忘记 `record` 不再能悄悄溜过去。
 
 ## [0.5.0] - 2026-11-03
 

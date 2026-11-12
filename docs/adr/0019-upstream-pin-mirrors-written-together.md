@@ -33,6 +33,8 @@ pin 是本仓唯一的跨文件事实源，它的镜像有三份：`manifest/ups
 3. **pin 前进后台账必须重录**：台账记的是资产在 pin 提交下的 tree oid，pin 一动就过期。
    脚本在 pin 前进时打印重录命令，CI 在同步步骤之后按需跑
    `python tools/upstream_versions.py record --source ecc`，台账与 pin 在同一个 PR 里一起更新。
+   离线台账门禁同时比对每个来源在台账里记录的 commit 与它当前的 pin，两者不一致即失败——
+   「记得重录」由流程保证只是软约束，门禁才是硬约束。
 4. **CI 用 `git status --porcelain` 判定是否真有改动**：无改动就跳过开 PR 的步骤，
    并在日志里说明「上游内容未变」；PR body 回报实际 pin、目标 commit 与「pin 是否移动」。
 

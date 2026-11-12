@@ -348,7 +348,9 @@ def cmd_check_offline():
 
     每个 manifest 当前来源的每个资产在台账里有条目；台账里没有
     已删除（清单里不再存在）的资产条目；每个 tree 是 40 位十六进制
-    或 null。形状错误退出 1，否则 0。离线模式下不比对内容漂移。
+    或 null；每个来源在台账里记录的 commit 等于它当前的 pin（台账记的
+    是资产在 pin 提交下的样子，pin 前进后必须重录）。形状错误退出 1，
+    否则 0。离线模式下不比对内容漂移。
     """
     ledger = load_ledger()
     sources = ledger.get("sources")
@@ -361,6 +363,12 @@ def cmd_check_offline():
         if not isinstance(rec, dict) or "assets" not in rec:
             problems.append(f"[{slug}] 台账缺来源记录")
             continue
+        if rec.get("commit") != src["commit"]:
+            problems.append(
+                f"[{slug}] 台账记录的 commit {rec.get('commit')!r} != 当前 pin "
+                f"{src['commit']!r}；台账记的是资产在 pin 提交下的内容，"
+                "pin 前进后要重录：python tools/upstream_versions.py record"
+            )
         rec_assets = rec["assets"] or {}
         for name, asset in sorted(src["assets"].items()):
             if name not in rec_assets:
