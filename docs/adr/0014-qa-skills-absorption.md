@@ -80,19 +80,17 @@
 
 ## 修订说明（2026-11-12）
 
-本文记录的是 2026-11-03 当时的数字。上游 qa-skills 前进到 `5053e04`、并新增
-`ai-system-testing` 之后（[ADR-0017](0017-upstream-pin-advances-on-asset-change.md)），
-以下几处已过时，照本文复核会误判：
+本文正文里的命中数（`python3 ../core/scripts/` 5 处、`../core/` 141 处、`` `qa` `` 19 处、
+`slug` / `displayName` 各 13 处、146 处引用、收纳 19 条）是 2026-11-03 当时的快照，已经过时：
+命中数与资产条数都随上游前进而变，**照本文的旧数字复核会把正确实现判成 `Drift`**。
 
-| 本文写的 | 现状 |
+这些数字的真源只有一处，本仓不在文档里维护第二份副本：
+
+| 想知道 | 看哪 |
 | --- | --- |
-| `core` 之外 12 条 QA skill | 13 条（core + 13 = 14 条） |
-| 命中数 `python3 ../core/scripts/` 5、`../core/` 141、`` `qa` `` 19、`slug` / `displayName` 各 13 | 带解释器的脚本 12 处、裸脚本路径 10 处、`../core/` 154 处、`` `qa` `` 20 处、`slug` / `displayName` 各 14 处 |
-| 146 处 `core` 引用 | 164 处 |
-| 收纳 19 条 | 20 条 |
-
-真源是 `tools/absorbed_fixups.py` 里的 `SOURCE_RULES` 期望值，`tools/sync_absorbed.py`
-每次重放都按它校验，不符即失败。
+| 改写规则现在期望命中多少次 | `tools/absorbed_fixups.py` 的 `SOURCE_RULES` 期望值（`tools/sync_absorbed.py` 每次重放都按它校验，不符即失败） |
+| 收纳池现在有几条 | `manifest/absorbed.json` 的 `skills` |
+| 收纳资产的内容指纹 | `manifest/asset_versions.json`（`tools/upstream_versions.py`） |
 
 2026-11-13 追加：上游 `5053e04` 起有 10 处**不带解释器**的脚本路径（原文是
 `` `../core/scripts/x.py` ``），它们同样是执行指令（"运行 … 无错误（退出码 0）"）。

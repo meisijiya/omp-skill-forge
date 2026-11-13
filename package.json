@@ -1,6 +1,6 @@
 {
   "name": "omp-skill-forge",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "把上游 skill 仓库（ECC 主池 + pstack/addyosmani/qa-skills 收纳池）适配成 omp 插件：声明式改写、profile 裁剪、逐资产上游台账与门禁",
   "license": "MIT",
   "keywords": [

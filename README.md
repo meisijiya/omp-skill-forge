@@ -335,6 +335,39 @@ python tools/upstream_versions.py show
 由物化重放生成，所以「同步」天然经过 omp 适配，不存在裸拉上游文本直接进运行树的路径。
 规则命中数或摘要不符时链路会失败而不是静默通过。
 
+### 版本与发布
+
+**一轮维护 = 一个版本**：这一轮要推送，就打一个版本 tag。版本号是插件对外的承诺
+（`package.json` 的 `version`，omp 里显示的 `omp-skill-forge@<version>` 就是它），
+tag 让某个版本可以被指名安装与回溯。
+
+版本号按 SemVer 判这一轮的内容：
+
+| 级别 | 什么时候 |
+| --- | --- |
+| patch | 只有缺陷修复与文档订正，行为不变 |
+| minor | 新增资产或能力（新增 skill、新增门禁、新增子命令），旧的照常能用 |
+| major | 改了已有资产的公开行为（改名、移除、语义变化） |
+
+发版步骤：
+
+```bash
+# 1) 改 package.json 的 version（0.5.0 -> 0.6.0）
+# 2) 把 CHANGELOG.md 的 [Unreleased] 段落改成 ## [0.6.0] - 2026-11-13
+# 3) 提交并推送
+git add -A && git commit -m "release: 0.6.0 —— <一句话摘要>" && git push origin main
+
+# 4) 打 tag：脚本先检查工作区干净、版本号一致、changelog 有该段落、tag 没被用过
+python tools/release.py --version 0.6.0 --summary "<一句话摘要>" --push
+
+# 5) 发 GitHub Release
+gh release create v0.6.0 --title "v0.6.0 —— <一句话摘要>" --generate-notes
+```
+
+版本号是单向门：`v0.6.0` 打出去就不能再改它的内容，要改就发 `v0.6.1`。
+分级判据与回滚要点见 `skill://forge-release-management`；每轮维护收尾按这条走，
+入口在 `skill://forge-router` 的「例行维护」。
+
 ### 门禁清单
 
 | 命令 | 查什么 | 退出码 | 什么时候跑 |
@@ -371,6 +404,10 @@ python tools/upstream_versions.py show
   skill 还多一路 `omp skill list` 描述级比对：它回答的是「omp 在这个名字下服务的是不是
   本仓的文本」，禁用态要求本仓的 skill 一条都不再带着本仓的描述被服务。
 - 引用判定只有一份实现：`tools/refscan.py`，物化器与 `check_refs.py` 共用它。
+- **文档里不维护会漂移的副本**：随实现变化的数字要么给算法出处（提示行 token 用
+  `tools/check_zh_descriptions.py` 的 `line_cost()`），要么只写真源位置——改写规则命中数看
+  `tools/absorbed_fixups.py` 的 `SOURCE_RULES` 期望值，资产条数看 `manifest/*.json`。
+  ADR 正文里出现过的命中数是当时的快照，照它复核会把正确实现判成 `Drift`。
 - **上游名残留按缺陷处理**：运行树里若还出现上游名（`api-design`）而运行名是
   `forge-api-design`，`check_refs.py` 报 `upstream spelling of a renamed …` 并以退出码 1
   结束 —— 运行树里按上游名读不到资产。别的插件提供的资产（`manifest/external_refs.json`

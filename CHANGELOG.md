@@ -3,10 +3,16 @@
 本文件记录本插件的对外变更，格式按 Keep-a-Changelog，版本号遵循 SemVer。
 版本号记在 `package.json` 的 `version`，发布 tag 一律用 `v<semver>`。
 
-## [Unreleased]
+## [0.6.0] - 2026-11-13
 
 ### Added
 
+- **每轮维护推送后发一个版本**：新增 `tools/release.py`（发版前检查工作区干净、`package.json`
+  的版本号、`CHANGELOG.md` 的版本段落、tag 未被用过，然后打 annotated tag）与
+  `README.md` → 「版本与发布」；版本号按 SemVer 判级别，tag 是单向门。
+- **`upstream_versions.py diff`**：按上游自己的目录树对比两个提交之间**新增、删除、内容变了**
+  的资产——`check` 只能报已声明资产的漂移，上游新增的资产不在本 fork 清单里，那正是例行维护
+  要先知道的事。`--since` / `--to` 指定两端，`--offline` 不联网。
 - **收纳 qa-skills 的 `ai-system-testing`**：测 AI 功能的不确定性风险、评测集与 rubric 设计、
   容错断言、judge 校准与注入面移交，进 `full` 与 `java-python` profile。
   上游 qa-skills 新增这条后 `qa`、`core`、`core/test-type-matrix` 都引用它，随源整体接纳。

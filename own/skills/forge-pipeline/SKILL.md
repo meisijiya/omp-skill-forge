@@ -46,6 +46,30 @@ apply_selection + check_adapt + check_refs，最后还原成已提交的 profile
 - `apply_selection.py` 单独跑，不要接管道；否则 `manifest/applied.json` 可能不落盘。
 - `am render` 写中文名页面会 exit 9（页面其实已生成），用 `-o` 给 ASCII 输出名绕过。
 
+## 发布（这一轮要推送就发一个版本）
+
+**一轮维护 = 一个版本**。维护收尾、门禁全绿、准备推送时，按 SemVer 判级别
+（patch = 只修缺陷；minor = 新增资产或能力；major = 改已有资产的公开行为），
+然后：
+
+```bash
+# 1) package.json 的 version 改成新版本号
+# 2) CHANGELOG.md 的 [Unreleased] 段落改成 ## [0.6.0] - 2026-11-13
+# 3) 提交并推送
+git add -A && git commit -m "release: 0.6.0 —— <一句话摘要>" && git push origin main
+
+# 4) 打 tag：脚本先检查工作区干净、版本号一致、changelog 有该段落、tag 没被用过
+python tools/release.py --version 0.6.0 --summary "<一句话摘要>" --push
+
+# 5) GitHub Release
+gh release create v0.6.0 --title "v0.6.0 —— <一句话摘要>" --generate-notes
+```
+
+tag 是单向门：`v0.6.0` 打出去就不能改它的内容，要改就发 `v0.6.1`。
+版本号是插件对外的承诺（omp 里显示 `omp-skill-forge@<version>`），
+所以 `package.json` 的 version、CHANGELOG 的段落、tag 三者必须是同一个版本号——
+`tools/release.py` 就是替人守这条的。
+
 ## 发布后要验的
 
 ```bash

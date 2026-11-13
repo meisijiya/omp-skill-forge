@@ -84,6 +84,7 @@ description: 当用户要开工、要决定读哪条 skill 或派哪个 agent �
 | 看日志、指标、告警 | `forge-observability` |
 | 同步上游、发布或部署这个插件本身 | `forge-pipeline` |
 | 这个插件的 CI 挂了 | `forge-ci-triage` |
+| 例行维护：看上游变了什么、决定要不要吸收 | `forge-pipeline`，吸收判断看 `forge-absorb-third-party-skill` |
 | 要把第三方仓库的 skill 收进本插件 | `forge-absorb-third-party-skill` |
 | 线上挂了、出事故 | `forge-incident-response` |
 | 监控面板怎么排 | `forge-dashboard-builder` |
@@ -230,6 +231,26 @@ description: 当用户要开工、要决定读哪条 skill 或派哪个 agent �
 | 读写 `.ts` / `.tsx` | `skill://forge-typescript-patterns`（仅 full profile；严格编译配置、类型设计与窄化） |
 | 测试从需求到报告整条链路怎么走 | `skill://forge-qa`（收纳自 fishzjp/qa-skills，`forge-core` 是它的共享知识库；`lite` 不收） |
 | 被测对象含 AI 行为，要测不确定性、评测集与 judge 校准 | `skill://forge-ai-system-testing`（同源 QA 套件；`lite` 不收） |
+
+---
+
+## 例行维护（上游更新普查 + 决定要不要吸收）
+
+1. 先看上游相对 pin 变了什么：
+   ```bash
+   python tools/upstream_versions.py diff --source qa-skills   # 新增 / 已删 / 内容变了
+   ```
+   `--since <提交>` 指定基准（缺省用 manifest 里记录的 pin），`--to <提交>` 指定对照端；
+   `--offline` 不联网，对照端取缓存克隆的 HEAD（缓存可能是旧提交，输出里会写明）。
+   ECC 主池用 `--source ecc`，agent 条目以 `agent:` 前缀列出。
+2. ECC 侧走 `skill://forge-pipeline` 的同步链路；收纳侧走
+   `skill://forge-absorb-third-party-skill`（**不得直接复制上游**：先过
+   `tools/absorbed_fixups.py` 的声明式规则，再物化）。
+3. 决定吸纳哪些之后按 ADR-0017 的判据：**只有资产内容变了才推进 pin**；
+   上游只改 CI、脚本、文档时不动 pin。
+4. 收尾：跑七道门禁 → `python tools/build_catalog.py` → `python tools/deploy.py`。
+   这一轮要推送就按 `skill://forge-release-management` 打版本 tag（版本号语义、
+   changelog 与 tag 对应关系见 `README.md` → 「版本与发布」）。
 
 ---
 

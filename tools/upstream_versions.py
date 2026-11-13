@@ -191,6 +191,40 @@ def tree_oid(repo, commit, path):
     return oid if oid else None
 
 
+def ls_tree(repo, commit, path):
+    """一个目录在 commit 下的条目名（不含路径前缀）。"""
+    r = git(["ls-tree", "--name-only", f"{commit}:{path}"], cwd=repo)
+    if r.returncode != 0:
+        return []
+    return [line.strip() for line in r.stdout.splitlines() if line.strip()]
+
+
+def path_exists(repo, commit, path):
+    """路径在 commit 下是否存在。"""
+    return git(["cat-file", "-e", f"{commit}:{path}"], cwd=repo).returncode == 0
+
+
+def upstream_assets(repo, commit, slug):
+    """上游在 commit 下有的资产：{名字: 仓库内路径}。
+
+    枚举的是上游仓库自己的目录树，不是本 fork 声明的清单——上游新增的
+    资产还没进本 fork 的清单，正是要找出来的东西。
+    """
+    out = {}
+    if slug == "ecc":
+        for name in ls_tree(repo, commit, "pi/core/skills"):
+            if path_exists(repo, commit, f"pi/core/skills/{name}/SKILL.md"):
+                out[name] = f"pi/core/skills/{name}"
+        for name in ls_tree(repo, commit, "agents"):
+            if name.endswith(".md"):
+                out[f"agent:{name[:-3]}"] = f"agents/{name}"
+        return out
+    for name in ls_tree(repo, commit, "skills"):
+        if path_exists(repo, commit, f"skills/{name}/SKILL.md"):
+            out[name] = f"skills/{name}"
+    return out
+
+
 def version_file(asset):
     if asset["kind"] == "agent":
         return asset["path"]
@@ -390,8 +424,76 @@ def cmd_check_offline():
 
 
  # --------------------------------------------------------------------------
- # show
+ # diff
  # --------------------------------------------------------------------------
+def cmd_diff(source, since, to, offline):
+    """对比两个上游提交之间的资产差异。
+
+    `check` 只能报「已声明的资产内容变了」；上游**新增**或**删除**的资产不在
+    本 fork 的清单里，那正是例行维护要先知道的事，所以这里按上游自己的目录
+    树枚举两边。
+
+    基准是 `--since`（缺省用 manifest 里记录的 pin），对照端是 `--to`
+    （缺省取远端 HEAD）；`--offline` 不联网，对照端改用缓存克隆的 HEAD——
+    缓存可能是旧提交，所以输出里会写明对照端来自哪里。
+    """
+    sources = pick_sources(all_sources(), source)
+    changes = 0
+    for slug, src in sources.items():
+        src["slug"] = slug
+        base = since or src["commit"]
+        if to is not None:
+            head = to
+            clone = ensure_clone({"repo": src["repo"], "commit": head,
+                                  "ecc": src["ecc"], "slug": slug})
+            if not commit_present(clone, base):
+                fetch_commit(clone, {"repo": src["repo"], "ecc": src["ecc"],
+                                      "slug": slug}, base, what=f"{slug} 基准提交")
+            origin = "指定提交"
+        elif offline:
+            clone = cache_dir(slug)
+            if not os.path.isdir(os.path.join(clone, ".git")):
+                raise LedgerError(f"{slug}: 没有缓存克隆 {clone}，离线模式无法比较")
+            r = git(["rev-parse", "HEAD"], cwd=clone)
+            if r.returncode != 0:
+                raise LedgerError(f"{slug}: 缓存克隆的 HEAD 读不出来")
+            head = r.stdout.strip()
+            origin = "缓存克隆 HEAD（可能是旧提交）"
+            if not commit_present(clone, base):
+                raise LedgerError(
+                    f"{slug}: 缓存克隆里没有 {base[:12]}，离线模式无法比较")
+        else:
+            head = remote_head(src["repo"])
+            clone = ensure_clone({"repo": src["repo"], "commit": head,
+                                  "ecc": src["ecc"], "slug": slug})
+            origin = "远端 HEAD"
+            if not commit_present(clone, base):
+                fetch_commit(clone, {"repo": src["repo"], "ecc": src["ecc"],
+                                      "slug": slug}, base, what=f"{slug} 基准提交")
+        old = upstream_assets(clone, base, slug)
+        new = upstream_assets(clone, head, slug)
+        added = sorted(set(new) - set(old))
+        removed = sorted(set(old) - set(new))
+        changed = sorted(
+            name for name in set(old) & set(new)
+            if tree_oid(clone, base, old[name]) != tree_oid(clone, head, new[name])
+        )
+        print(f"[{slug}] {base[:12]} -> {head[:12]}（{src['repo']}，对照端：{origin}）")
+        if not (added or removed or changed):
+            print("  上游资产没有变化")
+        for name in added:
+            print(f"  上游新增  {name} ({new[name]})")
+        for name in removed:
+            print(f"  上游已删  {name} ({old[name]})")
+        for name in changed:
+            print(f"  内容变了  {name} ({new[name]})")
+        changes += len(added) + len(removed) + len(changed)
+    return 1 if changes else 0
+
+
+# --------------------------------------------------------------------------
+# show
+# --------------------------------------------------------------------------
 def cmd_show():
     ledger = load_ledger()
     sources = ledger.get("sources", {})
@@ -435,6 +537,17 @@ def main():
     p_check.add_argument("--offline", action="store_true",
                          help="不联网，只校验台账形状与覆盖")
 
+    p_diff = sub.add_parser(
+        "diff", help="对比 pin（或 --since）与上游 HEAD 的资产差异（新增/删除/内容变了）")
+    p_diff.add_argument("--source", default=None,
+                        help="只比较该来源（缺省全部）")
+    p_diff.add_argument("--since", default=None,
+                        help="基准提交（缺省用 manifest 里记录的 pin）")
+    p_diff.add_argument("--to", default=None,
+                        help="对照提交（缺省取远端 HEAD；离线时改用缓存克隆 HEAD）")
+    p_diff.add_argument("--offline", action="store_true",
+                        help="不联网，对照端取缓存克隆的 HEAD")
+
     sub.add_parser("show", help="打印台账摘要")
 
     args = ap.parse_args()
@@ -444,6 +557,8 @@ def main():
             return 0
         if args.cmd == "check":
             return cmd_check_offline() if args.offline else cmd_check(args.source)
+        if args.cmd == "diff":
+            return cmd_diff(args.source, args.since, args.to, args.offline)
         if args.cmd == "show":
             cmd_show()
             return 0
