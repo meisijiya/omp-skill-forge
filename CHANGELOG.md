@@ -20,6 +20,9 @@
 
 - 收纳池从 19 条变 20 条；默认 profile `java-python` 89 → 90 个 skill（65 上游 + 18 收纳 +
   7 自有），`full` 154 → 155。描述 token 约 2.9K，名称 token 约 0.5K。
+- **上游 pin 门禁加第 5 项**：`tools/check_upstream_pin.py` 现在校验 `NOTICE.md` 的上游版本
+  等于 pin 的版本、资产计数等于 `pool/` 实况，手改 NOTICE 会被打出来。
+- `AGENTS.md` 的门禁说明订正：七条命令里六条在 CI 跑，第七条（插件启停隔离）只在本地跑。
 
 ### Fixed
 

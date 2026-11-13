@@ -16,14 +16,16 @@ Single-context layout: `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs
 
 ## Gates
 
-Six gates guard this repo. Run them before declaring work done; each one fails loudly instead of
-silently letting a broken asset reach the runtime. Details in `README.md` → 「门禁清单」.
+Six of the seven gates below run in CI; the seventh (`check_plugin_isolation.py --toggle-test`)
+toggles the plugin locally and never runs in CI. Run them before declaring work done; each one fails
+loudly instead of silently letting a broken asset reach the runtime. Details in
+`README.md` → 「门禁清单」.
 
 | Command | Guards |
 | --- | --- |
 | `python tools/check_refs.py` | Dangling references: assets this fork does not provide |
 | `python tools/check_adapt.py` | omp adaptation invariants (INV-01..INV-15) |
-| `python tools/check_upstream_pin.py` | Upstream pin, its mirror and the pool digest agree |
+| `python tools/check_upstream_pin.py` | Upstream pin, its mirrors and the pool digest agree |
 | `python tools/check_absorbed.py` | Absorbed pool digests, generated bundle and adaptation residue agree |
 |`python tools/check_zh_descriptions.py`|Chinese trigger descriptions cover every skill and obey the wording rules|
 |`python tools/upstream_versions.py check --offline`|Per-asset version ledger covers every upstream asset|

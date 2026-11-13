@@ -49,6 +49,7 @@ from sync_upstream import (  # noqa: E402
     ROOT,
     UPSTREAM_MANIFEST,
     compute_pool_digest,
+    pool_counts,
 )
 
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
@@ -147,6 +148,61 @@ def check_notice_cites_pin(pin):
     return []
 
 
+def check_notice_mirrors(pin):
+    """Check 5: NOTICE.md's version and asset counts mirror the pin and pool.
+
+    The commit id is check 4.  What is left in the NOTICE.md upstream block
+    is derived from the same pin: the version comes from manifest/upstream.json
+    and the asset counts from the pool itself.  Both are recomputed here, so a
+    hand edited NOTICE.md cannot drift away from what it claims to describe.
+    """
+    try:
+        with open(NOTICE, encoding="utf-8") as f:
+            text = f.read()
+    except OSError as exc:
+        return [f"NOTICE.md cannot be read: {exc}"]
+
+    failures = []
+    version = pin.get("version")
+    skills, commands, agents = pool_counts()
+
+    match = re.search(r"(?m)^- 上游版本：(.+)$", text)
+    if not match:
+        failures.append("NOTICE.md has no upstream version line")
+    elif version not in (None, "unknown") and match.group(1).strip() != version:
+        failures.append(
+            f"NOTICE.md cites upstream version {match.group(1).strip()!r}, "
+            f"but the pin records {version!r}"
+        )
+
+    match = re.search(
+        r"(?m)^- 上游内容来源：仓库的 `pi/core/`（(\d+) skills \+ (\d+) commands", text
+    )
+    if not match:
+        failures.append("NOTICE.md has no upstream skill/command count line")
+    else:
+        if int(match.group(1)) != skills:
+            failures.append(
+                f"NOTICE.md cites {match.group(1)} upstream skills, "
+                f"but pool/ holds {skills}"
+            )
+        if int(match.group(2)) != commands:
+            failures.append(
+                f"NOTICE.md cites {match.group(2)} upstream commands, "
+                f"but pool/ holds {commands}"
+            )
+
+    match = re.search(r"(?m)^  与 `agents/`（(\d+) 个 agent 定义）。$", text)
+    if not match:
+        failures.append("NOTICE.md has no upstream agent count line")
+    elif int(match.group(1)) != agents:
+        failures.append(
+            f"NOTICE.md cites {match.group(1)} upstream agents, "
+            f"but pool/ holds {agents}"
+        )
+    return failures
+
+
 def main():
     try:
         pin = load_json(UPSTREAM_MANIFEST)
@@ -166,6 +222,8 @@ def main():
         ("pool/ digest", "pool/ digest: ", check_pool_digest(pin)),
         ("NOTICE.md cites the pinned upstream commit", "",
          check_notice_cites_pin(pin)),
+        ("NOTICE.md mirrors the pin's version and the pool's asset counts", "",
+         check_notice_mirrors(pin)),
     ]
 
     print("upstream pin check")
