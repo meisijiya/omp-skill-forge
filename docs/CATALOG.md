@@ -7,8 +7,8 @@
 
 | profile | 说明 | skills | commands | agents |
 | --- | --- | --- | --- | --- |
-| `full` | 上游 pi/core 全量技能（去掉与其它插件重复的 5 个）加编程相关 agent。不含命令。token 开销最大，仅在需要冷门技术栈时用。 | 148 | 0 | 49 |
-| `java-python` | Java/Kotlin + Python/Django/FastAPI 主力 + 通用工程规范。面向后端/测试开发日常。 | 83 | 0 | 22 |
+| `full` | 上游 pi/core 全量技能（去掉与其它插件重复的 5 个）加编程相关 agent。不含命令。token 开销最大，仅在需要冷门技术栈时用。 | 167 | 0 | 50 |
+| `java-python` | Java/Kotlin + Python/Django/FastAPI 主力 + 通用工程规范。面向后端/测试开发日常。 | 86 | 0 | 22 |
 | `lite` | 最小可用集：只保留后端核心规范 + Java/Python 主力 + 通用评审 agent。每轮提示开销最低。 | 39 | 0 | 11 |
 
 > 表里的**运行名**是本 fork 物化后实际使用的名字：上游名统一加 `forge-` 前缀（skill / command / agent）。
@@ -96,6 +96,7 @@
 | G5 | ⬜ `forge-laravel-tdd` | `laravel-tdd` | full |
 | G5 | ⬜ `forge-laravel-verification` | `laravel-verification` | full |
 | G5 | ⬜ `forge-rails-patterns` | `rails-patterns` | full |
+| G5 | ⬜ `forge-rails-security` | `rails-security` | full |
 | G5 | ⬜ `forge-dotnet-patterns` | `dotnet-patterns` | full |
 | G5 | ✅ `forge-nestjs-patterns` | `nestjs-patterns` | full, java-python |
 | G6 | ✅ `forge-postgres-patterns` | `postgres-patterns` | full, java-python, lite |
@@ -139,6 +140,7 @@
 | G9 | ⬜ `forge-mle-workflow` | `mle-workflow` | full |
 | G9 | ⬜ `forge-pytorch-patterns` | `pytorch-patterns` | full |
 | G9 | ⬜ `forge-bengali-nlp` | `bengali-nlp` | full |
+| G9 | ⬜ `forge-yoruba-localization-testing` | `yoruba-localization-testing` | full |
 | G9 | ⬜ `forge-module-governance` | `module-governance` | full |
 | G10 | ⬜ `forge-design-system` | `design-system` | full |
 | G10 | ⬜ `forge-motion-advanced` | `motion-advanced` | full |
@@ -152,6 +154,8 @@
 | G10 | ⬜ `forge-ecc-council` | `ecc-council` | full |
 | G10 | ⬜ `forge-product-capability` | `product-capability` | full |
 | G10 | ⬜ `forge-product-lens` | `product-lens` | full |
+| G11 | ⬜ `forge-godot-patterns` | `godot-patterns` | full |
+| G11 | ⬜ `forge-godot-testing` | `godot-testing` | full |
 | 收纳 | ✅ `forge-correct` | `correct` | full, java-python |
 | 收纳 | ✅ `forge-sharpen` | `sharpen` | full, java-python |
 | 收纳 | ✅ `forge-engineering-principles` | `engineering-principles` | full, java-python |
@@ -171,6 +175,21 @@
 | 收纳 | ✅ `forge-core` | `core` | full, java-python |
 | 收纳 | ✅ `forge-qa-memory` | `qa-memory` | full, java-python |
 | 收纳 | ✅ `forge-ai-system-testing` | `ai-system-testing` | full, java-python |
+| 收纳 | ⬜ `forge-spring-boot` | `spring-boot` | full |
+| 收纳 | ⬜ `forge-django` | `django` | full |
+| 收纳 | ⬜ `forge-fastapi` | `fastapi` | full |
+| 收纳 | ⬜ `forge-nestjs` | `nestjs` | full |
+| 收纳 | ⬜ `forge-gin` | `gin` | full |
+| 收纳 | ⬜ `forge-rust` | `rust` | full |
+| 收纳 | ⬜ `forge-laravel` | `laravel` | full |
+| 收纳 | ⬜ `forge-aspnet` | `aspnet` | full |
+| 收纳 | ⬜ `forge-thinkphp` | `thinkphp` | full |
+| 收纳 | ⬜ `forge-uniapp` | `uniapp` | full |
+| 收纳 | ⬜ `forge-vue3-element-admin` | `vue3-element-admin` | full |
+| 收纳 | ⬜ `forge-mysql-design` | `mysql-design` | full |
+| 收纳 | ✅ `forge-doc-standard` | `doc-standard` | full, java-python |
+| 收纳 | ✅ `forge-blog-writing` | `blog-writing` | full, java-python |
+| 收纳 | ✅ `forge-git-version` | `git-version` | full, java-python |
 
 ## Commands
 
@@ -227,6 +246,7 @@
 | A6 | ⬜ `forge-fsharp-reviewer` | `fsharp-reviewer` | full |
 | A6 | ⬜ `forge-harmonyos-app-resolver` | `harmonyos-app-resolver` | full |
 | A6 | ⬜ `forge-pytorch-build-resolver` | `pytorch-build-resolver` | full |
+| A6 | ⬜ `forge-gdscript-reviewer` | `gdscript-reviewer` | full |
 | A7 | ✅ `forge-database-reviewer` | `database-reviewer` | full, java-python |
 | A7 | ✅ `forge-network-architect` | `network-architect` | full, java-python |
 | A7 | ✅ `forge-network-config-reviewer` | `network-config-reviewer` | full, java-python |

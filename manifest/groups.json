@@ -3,7 +3,7 @@
   "upstream": {
     "repo": "https://github.com/affaan-m/ECC",
     "version": "2.2.3",
-    "commit": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+    "commit": "4adeee6732a12d1540f49a4d50a38ce8c97f9a53",
     "skill_source": "pi/core/skills",
     "command_source": "pi/core/commands",
     "agent_source": "agents"
@@ -110,6 +110,7 @@
         "laravel-tdd",
         "laravel-verification",
         "rails-patterns",
+        "rails-security",
         "dotnet-patterns",
         "nestjs-patterns"
       ]
@@ -173,6 +174,7 @@
         "mle-workflow",
         "pytorch-patterns",
         "bengali-nlp",
+        "yoruba-localization-testing",
         "module-governance"
       ]
     },
@@ -191,6 +193,13 @@
         "ecc-council",
         "product-capability",
         "product-lens"
+      ]
+    },
+    "G11": {
+      "title": "游戏开发 / Godot（GDScript）",
+      "members": [
+        "godot-patterns",
+        "godot-testing"
       ]
     }
   },
@@ -334,7 +343,8 @@
         "flutter-reviewer",
         "fsharp-reviewer",
         "harmonyos-app-resolver",
-        "pytorch-build-resolver"
+        "pytorch-build-resolver",
+        "gdscript-reviewer"
       ]
     },
     "A7": {

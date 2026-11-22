@@ -19,7 +19,10 @@
     "test-reliability",
     "core",
     "qa-memory",
-    "ai-system-testing"
+    "ai-system-testing",
+    "doc-standard",
+    "blog-writing",
+    "git-version"
   ],
   "skills": {
     "groups": [
@@ -52,6 +55,7 @@
       "laravel-tdd",
       "laravel-verification",
       "rails-patterns",
+      "rails-security",
       "dotnet-patterns",
       "clickhouse-io",
       "data-throughput-accelerator",

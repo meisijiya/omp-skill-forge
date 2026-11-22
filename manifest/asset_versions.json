@@ -3,7 +3,7 @@
   "sources": {
     "pstack": {
       "repo": "https://github.com/backnotprop/pstack",
-      "commit": "08547969e1dffaa6457ea65141cc62c1d9a2eef1",
+      "commit": "c3464c11c60b1352d5e8f5f0428a3a6943837568",
       "assets": {
         "correct": {
           "path": "skills/correct",
@@ -17,12 +17,12 @@
         },
         "sharpen": {
           "path": "skills/sharpen",
-          "tree": "726fcb216692c5a2ad78b5c2ae19c2e6ac66cb67",
+          "tree": "672ef555c7b4c24b4a5bd016647c5d836a1d6aa6",
           "version": null
         },
         "statechart": {
           "path": "skills/statechart",
-          "tree": "fc8234cff29087bdc1c4a2dc5d2fac6acfa89245",
+          "tree": "d3d60f78916e8c17a598c39738e45ab419603f06",
           "version": null
         },
         "typescript-best-practices": {
@@ -34,7 +34,7 @@
     },
     "ecc": {
       "repo": "https://github.com/affaan-m/ECC",
-      "commit": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "commit": "4adeee6732a12d1540f49a4d50a38ce8c97f9a53",
       "assets": {
         "a11y-architect": {
           "path": "agents/a11y-architect.md",
@@ -43,7 +43,7 @@
         },
         "accessibility": {
           "path": "pi/core/skills/accessibility",
-          "tree": "1b9f71ad866637569eea15730e6bb36ecb8a7a03",
+          "tree": "41955f8292f74100f383461d655d0c7b2832fc8a",
           "version": null
         },
         "agent-architecture-audit": {
@@ -63,7 +63,7 @@
         },
         "agent-harness-construction": {
           "path": "pi/core/skills/agent-harness-construction",
-          "tree": "667e6b5ca398ed607f04e48aa30e78841abd24b8",
+          "tree": "5b2f55ab8709a5eb1893c1c2c00ed9a93b32dfab",
           "version": null
         },
         "agent-introspection-debugging": {
@@ -78,7 +78,7 @@
         },
         "agent-self-evaluation": {
           "path": "pi/core/skills/agent-self-evaluation",
-          "tree": "1aa0e06f89546f819d3512244a8c93476fe30087",
+          "tree": "d93476eb8183aec69d1aff8716ff7f73444254ee",
           "version": null
         },
         "agentic-engineering": {
@@ -133,7 +133,7 @@
         },
         "benchmark-optimization-loop": {
           "path": "pi/core/skills/benchmark-optimization-loop",
-          "tree": "d3b6dfe1228dfd329fc87c8ec3b082a7cf7ffc12",
+          "tree": "51c6739150da3e2d2261a3d1ab49c5aa6e850d33",
           "version": null
         },
         "bengali-nlp": {
@@ -313,7 +313,7 @@
         },
         "database-migrations": {
           "path": "pi/core/skills/database-migrations",
-          "tree": "b0acdc0e55cafeeef965a66c6827dedb240a8cd9",
+          "tree": "d47f6297495a3b1554426fc232af843c439e2103",
           "version": null
         },
         "database-reviewer": {
@@ -343,7 +343,7 @@
         },
         "django-celery": {
           "path": "pi/core/skills/django-celery",
-          "tree": "4d521219aa19b7479943637cd7419ac4d3638f26",
+          "tree": "d3816595ac4fb4dc60512a0e8d392279706ce818",
           "version": null
         },
         "django-patterns": {
@@ -383,7 +383,7 @@
         },
         "docs-governance": {
           "path": "pi/core/skills/docs-governance",
-          "tree": "ca3c45c3c500324ba3655dba7249e5a46bec6b73",
+          "tree": "82c0c25d944a5724073a6cf0a208be0d4637be6b",
           "version": null
         },
         "docs-lookup": {
@@ -398,7 +398,7 @@
         },
         "e2e-runner": {
           "path": "agents/e2e-runner.md",
-          "tree": "46a7867d8a3b31b15bc633a28a48fdfc22840ef4",
+          "tree": "12b629a950c86c84db9feba09b8794fc96f4d9e4",
           "version": null
         },
         "e2e-testing": {
@@ -476,6 +476,11 @@
           "tree": "57a018249a89523032f2997e54457ed89fb08c86",
           "version": null
         },
+        "gdscript-reviewer": {
+          "path": "agents/gdscript-reviewer.md",
+          "tree": "80cfdbd1658f4d2affd0d7450fa11e64584948d3",
+          "version": null
+        },
         "git-workflow": {
           "path": "pi/core/skills/git-workflow",
           "tree": "05020055c65f40ef9f0ba6d0dc141355a6089bf0",
@@ -489,6 +494,16 @@
         "go-reviewer": {
           "path": "agents/go-reviewer.md",
           "tree": "72dc7654ae34325cb6af2340ba752c450e8aae16",
+          "version": null
+        },
+        "godot-patterns": {
+          "path": "pi/core/skills/godot-patterns",
+          "tree": "290cfe06ccff84703f8054ba4aefd4252412385e",
+          "version": null
+        },
+        "godot-testing": {
+          "path": "pi/core/skills/godot-testing",
+          "tree": "2136a22daf6463d4adad82f830d7bf36f7aecf83",
           "version": null
         },
         "golang-patterns": {
@@ -533,7 +548,7 @@
         },
         "intent-driven-development": {
           "path": "pi/core/skills/intent-driven-development",
-          "tree": "d21a3038acffa440454fd4b539c221627c2f7b2b",
+          "tree": "7d8a0da878bcc2d458f46be0f02fbb325c98f6f0",
           "version": null
         },
         "java-build-resolver": {
@@ -593,7 +608,7 @@
         },
         "kubernetes-patterns": {
           "path": "pi/core/skills/kubernetes-patterns",
-          "tree": "7bbcc767ec26834d91bf16ef55e6e5a980b3abf6",
+          "tree": "3f69ff50ed3db99cae446ef6abc48adec0a51d65",
           "version": null
         },
         "laravel-patterns": {
@@ -858,12 +873,17 @@
         },
         "rag-pipeline-reviewer": {
           "path": "agents/rag-pipeline-reviewer.md",
-          "tree": "65bd8bbcab135e903779f35e560e9d7648b53802",
+          "tree": "eb5ef7be6aa642a68df03ee9a2f3d3d4cf96881c",
           "version": null
         },
         "rails-patterns": {
           "path": "pi/core/skills/rails-patterns",
           "tree": "f8c87f7ea3cf6bf099aeb9322d540e2d2b648b4a",
+          "version": null
+        },
+        "rails-security": {
+          "path": "pi/core/skills/rails-security",
+          "tree": "f8757ec71e4e526aba0502a35a314faaf3cf4274",
           "version": null
         },
         "react-build-resolver": {
@@ -938,7 +958,7 @@
         },
         "security-review": {
           "path": "pi/core/skills/security-review",
-          "tree": "265978ddc5e0822ee3d40408722fb43a88f6cf78",
+          "tree": "a9093c56a78f65afa417f28ea04abda05eb199a5",
           "version": null
         },
         "security-reviewer": {
@@ -1018,7 +1038,7 @@
         },
         "tdd-workflow": {
           "path": "pi/core/skills/tdd-workflow",
-          "tree": "b445be0df65fae209e92047b52990a8436f79442",
+          "tree": "454be0464271721c6b45c8f02be012b9670127df",
           "version": null
         },
         "test-collaboration": {
@@ -1060,16 +1080,21 @@
           "path": "agents/vue-reviewer.md",
           "tree": "137b520eea65ed529262135e0cc0299fbc2047b2",
           "version": null
+        },
+        "yoruba-localization-testing": {
+          "path": "pi/core/skills/yoruba-localization-testing",
+          "tree": "7596c11bc8265a4d363523fa2a182d977d43b403",
+          "version": null
         }
       }
     },
     "addyosmani": {
       "repo": "https://github.com/addyosmani/agent-skills",
-      "commit": "8bfcc1f9916f2eea55494d8c1fa7f4bde867dd9e",
+      "commit": "8c99fa36d90068c82d547f7c12a9d67a3e95f4ee",
       "assets": {
         "constraint-driven-development": {
           "path": "skills/constraint-driven-development",
-          "tree": "7b3206ce9770c2a8d41c2daae9a50e111785815c",
+          "tree": "650641498643c3c9fc6c567dc2f38ff23811053c",
           "version": null
         }
       }
@@ -1147,6 +1172,87 @@
           "path": "skills/test-strategy",
           "tree": "fa9b3ddee8149b3edaeb7e5c03df7dd70d2c27b7",
           "version": "0.9.0"
+        }
+      }
+    },
+    "youlai": {
+      "repo": "https://github.com/youlaitech/youlai-skills",
+      "commit": "3825a481f1f64e772cbea2ca50e2b4be1f9e7cab",
+      "assets": {
+        "aspnet": {
+          "path": "skills/aspnet",
+          "tree": "dc21ac8e7c2182bdc8f3d84aa4a6d3b5d1653740",
+          "version": null
+        },
+        "blog-writing": {
+          "path": "skills/blog-writing",
+          "tree": "d7980190840c0c2e0a6833014624a37573ac30c1",
+          "version": null
+        },
+        "django": {
+          "path": "skills/django",
+          "tree": "545b58cded1d586b9b68d8b163a5b70985afaadf",
+          "version": null
+        },
+        "doc-standard": {
+          "path": "skills/doc-standard",
+          "tree": "68c0b910b6d45c64dda135374776915d4d764cfa",
+          "version": null
+        },
+        "fastapi": {
+          "path": "skills/fastapi",
+          "tree": "8db8b69833daa3dd3598315f0933baea8d08cc70",
+          "version": null
+        },
+        "gin": {
+          "path": "skills/gin",
+          "tree": "0047c7b12611839226696d554fc3bd7165432836",
+          "version": null
+        },
+        "git-version": {
+          "path": "skills/git-version",
+          "tree": "9853f51424adc149731b3ea7102dbc2de3e7661a",
+          "version": null
+        },
+        "laravel": {
+          "path": "skills/laravel",
+          "tree": "611912083611746fd3286c6c251b2768919adba5",
+          "version": null
+        },
+        "mysql-design": {
+          "path": "skills/mysql-design",
+          "tree": "35973fdc7310e74a4695bae8b1154e8fb55849ba",
+          "version": null
+        },
+        "nestjs": {
+          "path": "skills/nestjs",
+          "tree": "c998496e79c1935db140cf70140bb4ed27b3be25",
+          "version": null
+        },
+        "rust": {
+          "path": "skills/rust",
+          "tree": "62cf3ced05efee9221a31f372c929fc5ddecfc10",
+          "version": null
+        },
+        "spring-boot": {
+          "path": "skills/spring-boot",
+          "tree": "d72aa3cc5e57a068fe31cc6657738cff1b110503",
+          "version": null
+        },
+        "thinkphp": {
+          "path": "skills/thinkphp",
+          "tree": "81a42dced4ddb1e39344d082b8f96efdc7b1b5be",
+          "version": null
+        },
+        "uniapp": {
+          "path": "skills/uniapp",
+          "tree": "ae8dc2469c1cca2cd370a1611ba2861dfd86ba03",
+          "version": null
+        },
+        "vue3-element-admin": {
+          "path": "skills/vue3-element-admin",
+          "tree": "821b50c07740193e7139e338abed6008ca8e7735",
+          "version": null
         }
       }
     }

@@ -3,6 +3,44 @@
 本文件记录本插件的对外变更，格式按 Keep-a-Changelog，版本号遵循 SemVer。
 版本号记在 `package.json` 的 `version`，发布 tag 一律用 `v<semver>`。
 
+## [0.7.0] - 2026-11-22
+
+### Added
+
+- **收纳 youlaitech/youlai-skills 的 15 条 skill**：pin 到 `3825a481f1f6`，新增
+  `forge-spring-boot`、`forge-django`、`forge-fastapi`、`forge-nestjs`、`forge-gin`、
+  `forge-rust`、`forge-laravel`、`forge-aspnet`、`forge-thinkphp`、`forge-uniapp`、
+  `forge-vue3-element-admin`、`forge-mysql-design`、`forge-doc-standard`、
+  `forge-blog-writing`、`forge-git-version`。上游正文没有 harness 残留，改写规则一条没加，
+  收纳副本与上游逐字节一致，只有 frontmatter 的 `name` 换成运行名。
+  许可按同组织其它仓库一致的 Apache-2.0 认定（该仓库自身没有 LICENSE 文件，
+  依据写进 [ADR-0020](docs/adr/0020-youlai-skills-absorption.md) 与 `NOTICE.md`）。
+  `full` 收全部 15 条，`java-python` 只收与主力栈无关的 `doc-standard`、`blog-writing`、
+  `git-version`，`lite` 一条不收。
+- **许可门禁支持多许可族**：`tools/check_absorbed.py` 不再只认 MIT，按来源声明的
+  `spdx` 校验——MIT 要许可文本与版权行都在文本里，Apache-2.0 要许可文本随内容走、
+  版权行在 `NOTICE.md`；未声明 `spdx` 的来源仍按 MIT 处理。
+- **上游 ECC 新增 4 条 skill 与 1 个 agent**：pin 前进到 `4adeee6732a1`，上游新增
+  `godot-patterns`、`godot-testing`（Godot 4 / GDScript）、`rails-security`（Rails 7.1+ 安全）
+  与 `yoruba-localization-testing`（约鲁巴语—英语双语界面测试），新增 agent `gdscript-reviewer`。
+  新增分组 `G11`「游戏开发 / Godot（GDScript）」，只进 `full`；`rails-security` 进 `G5`
+  （与 `rails-patterns` 同组）、`yoruba-localization-testing` 进 `G9`（与 `bengali-nlp` 同组），
+  `gdscript-reviewer` 进 `A6`。`java-python` 排除 `rails-security`（与既有 `rails-patterns`
+  一致），`lite` 不变。
+- 收纳池 pin 前进：pstack → `c3464c11c60b`（`sharpen` 与 `statechart` 正文修正，
+  `statechart` 脚本新增 `janitor.ts` 与 `kill.ts`），addyosmani → `8c99fa36d900`
+  （`constraint-driven-development` 的 dependency-cruiser 命令修正）。
+
+### Changed
+
+- 收纳池从 20 条变 35 条。`full` 物化后 155 → 174 个 skill（133 上游 + 34 收纳 + 7 自有），
+  49 → 50 个 agent；`java-python` 90 → 93 个 skill（65 上游 + 21 收纳 + 7 自有）；
+  `lite` 仍 46 + 11。
+- `full` 的提示行开销：描述 4,904 → 5,489 token，名称 1,003 → 1,092 token，合计约 6.6K；
+  `java-python` 合计约 3.5K。
+- README 的规模表、token 表、`pool/` 快照计数（138 skills / 72 agents）与
+  `own/skills/` 行数（7 条）同步订正。
+
 ## [0.6.0] - 2026-11-13
 
 ### Added

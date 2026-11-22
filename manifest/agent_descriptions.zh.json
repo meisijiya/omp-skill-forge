@@ -28,6 +28,7 @@
   "gan-evaluator": "实测运行中的应用，按量表严格打分并给改进意见。要验收应用或给生成器反馈时派它。",
   "gan-generator": "按规格实现功能，读评估反馈后迭代到达标。要写实现或按反馈改代码时派它。",
   "gan-planner": "把一行需求扩成完整产品规格，含功能、冲刺与评估标准。要启动 GAN 流程或定规格时派它。",
+  "gdscript-reviewer": "审 Godot 4 GDScript 改动，查类型、场景与生命周期安全。要改 .gd 文件或做游戏评审时派它。",
   "go-build-resolver": "修 Go 的构建、vet 与编译错误，改动最小。要 Go 构建失败或 vet 报错时派它。",
   "go-reviewer": "审 Go 的地道写法、并发与错误处理。要写 Go 或评审并发代码时派它。",
   "harmonyos-app-resolver": "做 HarmonyOS 原生开发，ArkTS 强制 V2 状态管理与 Navigation 路由。要写鸿蒙应用或审 ArkTS 代码时派它。",

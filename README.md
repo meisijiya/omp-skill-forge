@@ -4,7 +4,8 @@
 > 上游分两类：主池是 [affaan-m/ECC](https://github.com/affaan-m/ECC) 的编程子集快照，
 > 收纳池是 fork 之外的仓库（[backnotprop/pstack](https://github.com/backnotprop/pstack)、
 > [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)、
-> [fishzjp/qa-skills](https://github.com/fishzjp/qa-skills)）里值得整套搬进来的 skill。
+> [fishzjp/qa-skills](https://github.com/fishzjp/qa-skills)、
+> [youlaitech/youlai-skills](https://github.com/youlaitech/youlai-skills)）里值得整套搬进来的 skill。
 > 两者都经声明式改写、按 profile 裁剪后物化成可版本化、可增量更新的独立插件，
 > 每轮系统提示的 token 开销压到可控范围。
 
@@ -12,8 +13,8 @@
 `tools/deploy.py` 从这里同步过去，omp 通过 `omp plugin link` 指向该安装根。
 仓库名、插件 id、安装根与运行名前缀统一是 `omp-skill-forge` / `forge-`。
 
-默认 profile（`java-python`）下的生效规模：**90 skills + 22 agents + 5 rules**
-（90 = 上游选中的 65 个 + 收纳资产池的 18 个 + 本 fork 自带的 7 个：`forge-router`、发布 /
+默认 profile（`java-python`）下的生效规模：**93 skills + 22 agents + 5 rules**
+（93 = 上游选中的 65 个 + 收纳资产池的 21 个 + 本 fork 自带的 7 个：`forge-router`、发布 /
 可观测性 / 事故响应三条运维 skill，以及更新流水线 / CI 定位 / 收纳第三方 skill 三条
 本插件自己的运维 skill）；本 fork **不发布命令**，
 换 profile 后的规模见「切换 profile」一节的表。
@@ -148,8 +149,8 @@ python tools/check_plugin_isolation.py --toggle-test
 互不遮蔽。skill 侧本来就没有重名，加前缀后同样不重。
 
 判定「本插件有没有泄漏」靠的是差值而不是名字表：同一轮探测里，提示行里的 skill 条目数在
-启用态与禁用态之间的**差值恰好等于本仓的 skill 总数（90）**，少掉的正是这 90 个名字；
-`omp skill list` 同时从 ours=90 变成 ours=0。提示行的总条目数会随别的插件增减而浮动，
+启用态与禁用态之间的**差值恰好等于本仓的 skill 总数（93）**，少掉的正是这 93 个名字；
+`omp skill list` 同时从 ours=93 变成 ours=0。提示行的总条目数会随别的插件增减而浮动，
 所以只认差值，不认某个绝对值。rules 5、agents 22 是逐条按描述比对过的。
 
 禁用只决定「本插件提供哪些资产」，不决定「文件还在不在磁盘上」：`omp plugin disable` 只是把
@@ -209,37 +210,37 @@ python tools/deploy.py
 
 | profile | skills | agents | 适用 |
 | --- | --- | --- | --- |
-| `java-python` | 83 | 22 | 默认。Java/Kotlin + Python/Django/FastAPI + 通用工程规范 + 测试与发布/运维 |
+| `java-python` | 86 | 22 | 默认。Java/Kotlin + Python/Django/FastAPI + 通用工程规范 + 测试与发布/运维 |
 | `lite` | 39 | 11 | 每轮提示开销最低，只做后端核心 |
-| `full` | 148 | 49 | 上游 `pi/core` 全量 + 全部编程 agent，冷门技术栈时用 |
+| `full` | 167 | 50 | 上游 `pi/core` 全量 + 全部编程 agent，冷门技术栈时用 |
 
 表中数字 = 该 profile 从上游 `pool/` 选中的资产 + 收纳资产池的条目（与 `docs/CATALOG.md` 同口径），
-**不含**本 fork 自带资产。收纳条目按 profile 分别是 `full` 19 条、`java-python` 18 条、`lite` 0 条，
+**不含**本 fork 自带资产。收纳条目按 profile 分别是 `full` 34 条、`java-python` 21 条、`lite` 0 条，
 所以物化后实际生效的 skills 数 = 上表数字 + 7（自有 `forge-router`、发布 / 可观测性 /
 事故响应三条运维 skill，以及更新流水线 / CI 定位 / 收纳第三方 skill 三条插件运维 skill）：
-`full` 155、`java-python` 90、`lite` 46。agents 与上表一致，
+`full` 174、`java-python` 93、`lite` 46。agents 与上表一致，
 rules 恒为自有 5 条。本 fork 不发布命令。
 
 各 profile 的收益对比（技能描述进系统提示的部分）：
 
 | profile | 描述 token | 名称 token | 合计 token |
 | --- | --- | --- | --- |
-| `full` | 4,904 | 1,003 | ~5.9K |
-| `java-python` | 2,868 | 550 | ~3.4K |
+| `full` | 5,489 | 1,092 | ~6.6K |
+| `java-python` | 2,958 | 565 | ~3.5K |
 | `lite` | 1,509 | 289 | ~1.8K |
 
 描述 token 按 `tools/check_zh_descriptions.py` 的 `line_cost()` 估算：中文汉字（不含中文
 标点）一个字一个 token、其余字符除以 3.5；名称按运行名字符数除以 3.5 估算。
 描述改成中文之后，三个 profile 的提示行都省下 1.3K 到 3.9K token：
-`java-python` 从约 5.2K 降到约 3.4K，`full` 从约 9.8K 降到约 5.9K，`lite` 从约 3.1K
+`java-python` 从约 5.2K 降到约 3.5K，`full` 从约 9.8K 降到约 6.6K，`lite` 从约 3.1K
 降到约 1.8K。
 
 前缀本身的开销 = 6 字符 × 被改名的资产数（上游 + 收纳，自有资产的名字本就带前缀）：
-`full` 技能名 +888、`java-python` +498、`lite` +234；agent 名同样带前缀，`java-python` 下 agent 名 +132。
+`full` 技能名 +1002、`java-python` +516、`lite` +234；agent 名同样带前缀，`java-python` 下 agent 名 +132。
 
-`full` 物化后实际进系统提示的是 155 个 skill（129 个上游 + 19 个收纳 + 自带的 7 个）。
-收纳资产在其中占约 747 token（19 条中文描述 637 + 运行名 110）；`java-python`
-下收纳 18 条占约 709 token（描述 604 + 运行名 105）。
+`full` 物化后实际进系统提示的是 174 个 skill（133 个上游 + 34 个收纳 + 自带的 7 个）。
+收纳资产在其中占约 1272 token（34 条中文描述 1100 + 运行名 172）；`java-python`
+下收纳 21 条占约 814 token（描述 694 + 运行名 120）。
 
 切完 profile 若不想把指针改动留在工作区，用下面这条还原（物化/部署脚本都只读它，
 但手工或脚本重写这个 JSON 文件容易改掉缩进或末尾换行，还原后 diff 才干净）：
@@ -438,11 +439,11 @@ hide: true
 
 | 路径 | 作用 |
 | --- | --- |
-| `pool/skills/` | 上游 ECC `pi/core` 的 132 个 skill 快照（未裁剪） |
+| `pool/skills/` | 上游 ECC `pi/core` 的 138 个 skill 快照（未裁剪） |
 | `pool/commands/` | 上游 ECC `pi/core` 的 24 个 command 快照（本 fork 不发布，仅留档回溯） |
-| `pool/agents/` | 上游 ECC `agents/` 的 71 个 agent 快照（原始，含 Claude 专有 `model:` 行） |
+| `pool/agents/` | 上游 ECC `agents/` 的 72 个 agent 快照（原始，含 Claude 专有 `model:` 行） |
 | `absorbed/<source>/` | 收纳资产池：fork 之外仓库的 skill，经 `tools/absorbed_fixups.py` 改写后入库；各来源 `LICENSE` 随目录走（ADR-0010） |
-| `own/skills/` | fork 自有 skill（`forge-router` 选路表 + 发布 / 可观测性 / 事故响应三条运维 skill），始终物化 |
+| `own/skills/` | fork 自有 7 条 skill（`forge-router` 选路表 + 发布 / 可观测性 / 事故响应三条运维 skill + 插件自身运维三条），始终物化 |
 | `own/rules/` | fork 自有 rules（5 条 omp 适配规则），始终物化 |
 | `manifest/groups.json` | 三类资产的分类目录（分组 → 成员）；顶层 `upstream` 块是上游 pin 的同步镜像 |
 | `manifest/profiles/` | profile 定义（组 + 排除项） |
@@ -572,3 +573,7 @@ fork 自有的 5 条 rules：
 
 上游 ECC 为 MIT 许可，版权归 Affaan Mustafa（见 `LICENSE`）。本 fork 保留原许可，
 改动仅为「裁剪 + omp 适配 + 去掉 Claude 专有字段」，详见 `NOTICE.md`。
+
+收纳池的三个 MIT 来源（pstack、addyosmani/agent-skills、qa-skills）与一个 Apache-2.0
+来源（youlaitech/youlai-skills）各自随附许可文本：`absorbed/<source>/LICENSE`，
+版权声明与改动说明在 `NOTICE.md` 的「第三方收纳资产」一节。

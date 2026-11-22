@@ -16,7 +16,8 @@ five things can drift, and each is a defect:
      produce -- someone edited the generated file instead of the rules.
   4. an absorbed source lost its license text, or the text no longer carries
      the copyright line the manifest declares (MIT requires both to travel
-     with the content).
+     with the content; Apache-2.0 keeps the copyright line in NOTICE.md and
+     the license text next to the content).
   5. a stored skill still carries text the adaptation invariants forbid
      (`CLAUDE.md`, `.claude/`, `disable-model-invocation`, a slash trigger
      the rules were supposed to strip).
@@ -41,6 +42,18 @@ ABSORBED = sync_absorbed.ABSORBED
 MANIFEST = sync_absorbed.MANIFEST
 
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+
+# Per license family: the markers the shipped license text must contain, and
+# where the declared copyright line has to appear.  MIT keeps it inside the
+# license text; Apache-2.0 leaves the appendix unfilled, so the attribution
+# lives in NOTICE.md.
+LICENSES = {
+    "MIT": {"markers": ("MIT License",), "copyright_in": "license"},
+    "Apache-2.0": {"markers": ("Apache License", "Version 2.0, January 2004"),
+                   "copyright_in": "notice"},
+}
+DEFAULT_LICENSE = "MIT"
+NOTICE = os.path.join(ROOT, "NOTICE.md")
 
 # Text the stored copy must never carry: INV-02/03/15 and the two
 # host-specific frontmatter keys the rules drop.
@@ -86,17 +99,34 @@ def check_manifest(findings):
         if not SHA_RE.match(str(spec.get("commit", ""))):
             defect(findings, "manifest", f"sources/{slug}", "commit is not a 40 character sha")
         license_spec = spec.get("license") or {}
+        spdx = license_spec.get("spdx", DEFAULT_LICENSE)
+        family = LICENSES.get(spdx)
+        if family is None:
+            defect(findings, "license", f"sources/{slug}",
+                   "unknown license family %r" % spdx)
+            continue
         license_path = os.path.join(ABSORBED, slug, license_spec.get("file", "LICENSE"))
         if not os.path.isfile(license_path):
             defect(findings, "license", license_path,
-                   "MIT requires the upstream license text to travel with the content")
-        else:
-            text = open(license_path, encoding="utf-8", errors="replace").read()
-            if license_spec.get("copyright") not in text:
+                   "the upstream license text must travel with the content")
+            continue
+        text = open(license_path, encoding="utf-8", errors="replace").read()
+        for marker in family["markers"]:
+            if marker not in text:
+                defect(findings, "license", license_path,
+                       "not a %s license text" % spdx)
+        copyright = license_spec.get("copyright")
+        if family["copyright_in"] == "license":
+            if copyright and copyright not in text:
                 defect(findings, "license", license_path,
                        "does not carry the declared copyright line")
-            if "MIT License" not in text:
-                defect(findings, "license", license_path, "not an MIT license text")
+        elif copyright:
+            notice_text = ""
+            if os.path.isfile(NOTICE):
+                notice_text = open(NOTICE, encoding="utf-8", errors="replace").read()
+            if copyright not in notice_text:
+                defect(findings, "license", NOTICE,
+                       "does not carry the declared copyright line")
     skills = manifest.get("skills") or {}
     if not skills:
         defect(findings, "manifest", "manifest/absorbed.json", "no skills declared")

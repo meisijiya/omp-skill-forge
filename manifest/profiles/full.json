@@ -20,7 +20,22 @@
     "test-reliability",
     "core",
     "qa-memory",
-    "ai-system-testing"
+    "ai-system-testing",
+    "spring-boot",
+    "django",
+    "fastapi",
+    "nestjs",
+    "gin",
+    "rust",
+    "laravel",
+    "aspnet",
+    "thinkphp",
+    "uniapp",
+    "vue3-element-admin",
+    "mysql-design",
+    "doc-standard",
+    "blog-writing",
+    "git-version"
   ],
   "skills": {
     "groups": [
@@ -33,7 +48,8 @@
       "G7",
       "G8",
       "G9",
-      "G10"
+      "G10",
+      "G11"
     ],
     "exclude": [
       "architecture-decision-records",

@@ -30,7 +30,6 @@ cat pom.xml 2>/dev/null || cat build.gradle 2>/dev/null || cat build.gradle.kts 
 ```
 
 - If the build file contains `quarkus` → apply **[QUARKUS]** rules
-- If the build file contains `spring-boot` → apply **[SPRING]** rules
 - If both are present (unlikely) → flag as a finding and apply both rulesets
 - If neither is detected → use general Java rules only and note the ambiguity
 

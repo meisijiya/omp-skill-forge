@@ -2,7 +2,7 @@
   "sources": {
     "pstack": {
       "repo": "https://github.com/backnotprop/pstack",
-      "commit": "08547969e1dffaa6457ea65141cc62c1d9a2eef1",
+      "commit": "c3464c11c60b1352d5e8f5f0428a3a6943837568",
       "license": {
         "file": "LICENSE",
         "copyright": "Copyright (c) 2026 Lauren Tan"
@@ -10,7 +10,7 @@
     },
     "addyosmani": {
       "repo": "https://github.com/addyosmani/agent-skills",
-      "commit": "8bfcc1f9916f2eea55494d8c1fa7f4bde867dd9e",
+      "commit": "8c99fa36d90068c82d547f7c12a9d67a3e95f4ee",
       "license": {
         "file": "LICENSE",
         "copyright": "Copyright (c) 2025 Addy Osmani"
@@ -22,6 +22,15 @@
       "license": {
         "file": "LICENSE",
         "copyright": "Copyright (c) 2026 fishzjp"
+      }
+    },
+    "youlai": {
+      "repo": "https://github.com/youlaitech/youlai-skills",
+      "commit": "3825a481f1f64e772cbea2ca50e2b4be1f9e7cab",
+      "license": {
+        "file": "LICENSE",
+        "spdx": "Apache-2.0",
+        "copyright": "Copyright (c) 2026 youlaitech"
       }
     }
   },
@@ -37,7 +46,7 @@
       "source": "pstack",
       "path": "skills/sharpen",
       "files": {
-        "SKILL.md": "6ae5174fc7396a0209e99726f96b5a905d5a018a98cf5da55a732cdd944dadda"
+        "SKILL.md": "ae55f64b184b2db63a45c6bc360d06ebf04ca5f4a8e037f0aa98dd5e87a438b6"
       }
     },
     "statechart": {
@@ -47,14 +56,14 @@
         "scripts/test/"
       ],
       "files": {
-        "SKILL.md": "c4480e7f0144fbb1ab95e6b56b64ea3f24b1814d7f5bbe2aa9a1d368d825124e",
+        "SKILL.md": "3b4f2c76ed41ee6254d323153eb9782527f02aaf7c8efb115f6008489f2d25ec",
         "references/render.md": "8cca446eb0c8f87f2ef7b97c4b149f59aacdc153134b4217c4bcde09b10ac3c4",
         "scripts/backends/cfg.ts": "aea4d8766d214e7fa08f4881f1037319655e75eb56652e1b6d5d4f13a162e3e1",
-        "scripts/backends/mermaid.ts": "75704b2704a9399a39479ff704a580d5b9a1d0fede01fe771df28bf799b434b6",
+        "scripts/backends/mermaid.ts": "ce293d34ce3928d93329bd6d1a889d5722620008dae4339add79ef226c3f9b88",
         "scripts/backends/plain-text.ts": "e2bedb855eb3806ec3fe7a7bfa49baa309fb4cf0da425b5fe1e0686268ce255a",
         "scripts/backends/report.ts": "730b4048578ab0468e1581f16fec60b246e321161effb68e481efb373f0f2501",
         "scripts/frontends/config.ts": "5eeab1e755f20a2c83b408c6503fdc9c6b10c971d8dedad3f912bd15f9763daf",
-        "scripts/frontends/dot.ts": "48797ec0f76a5b5b25d2a3ad6ca8ddabe5eed89d5148fea47574bd3eb655296b",
+        "scripts/frontends/dot.ts": "cd2e681ff58c759ddeaa17c2f3d4af1f0c3e71273566be555187b5d0e7767dac",
         "scripts/frontends/marks.ts": "eb0120e61a4004a435c7b7c46916da9dc8b2fa8696ed0d3eb64dc953fed3ab11",
         "scripts/frontends/messages.ts": "36bfc6fb3ffa86897661efb2aa67bd95b55a4da9a3e952831f6e0668826b4b92",
         "scripts/frontends/spec.ts": "450cdfc8d0577a96818ca3697efebbbf70b530a4ba7e3eee03cf1ba8d3f1a0fd",
@@ -63,6 +72,8 @@
         "scripts/frontends/verdict.ts": "0d0a9d6b6d6da5a7c48851b86d9d041f22982404dda6288795a1715138d7008b",
         "scripts/frontends/view.ts": "2c0af8939321c5aaed4b6ecac8ce6a98d0e6774d8bd15d4b02fe4f406b8c9620",
         "scripts/ir.ts": "5602beca4e4ac08421cfa07e4da989f0e75439f1d136cc923226909e771dc7ff",
+        "scripts/janitor.ts": "defac41e4cbfca3044c5078c544a0667f857a610c500c5ec96cb3bfaeec7120b",
+        "scripts/kill.ts": "058df69d1184029e55d7e81b4fd37a6dc8557c9208979fb7032482d5ab0db448",
         "scripts/package.json": "2c36842f391275b0f343a38947560adee155fab4a744eacef1e595e9f07c4e3d",
         "scripts/passes/annotate.ts": "dc8eeee09c3a9a0c060f32fb1d554e01bd80e5265751cdeb041ef3e19561b92a",
         "scripts/passes/label.ts": "b5ef402369c5e7846be1fd39165e95cbfe715fc36eb9331a0401b26523c539c9",
@@ -73,9 +84,9 @@
         "scripts/passes/region-check.ts": "8a6e0618740a14bb7048f6563b4324958177f4685d4d6d90364cc6245b1498b4",
         "scripts/passes/regions.ts": "d740ebfdbb5ec7b4984412a635a596b43af7a77b8bcb49a1463c8afa75299f72",
         "scripts/pipeline.ts": "8aa8d9295ab6762f7f2ffae91a0aee98b1a1314747c875edba4598fdab8ed543",
-        "scripts/run.ts": "baef0f2934a5f9a3cdd7a3a5c5ac409ee56b6e758c0f3edc5792169a18602518",
+        "scripts/run.ts": "fb6ec4a1835a15e6e72df28bb932b8df5a4c04c5de6f9c270fd63ff5cd148dc7",
         "scripts/statechart": "aeffb7077850fd4c225e3d18049ca6ed7b988cf48e88cd8463526a7feaa74d13",
-        "scripts/statechart.ts": "9ec96054f28cba0a055fdb34c3df87532c638d65ef7590509e897d5fba43089f",
+        "scripts/statechart.ts": "5d5feff7d78204c828a8e30d531d23419234a81a7149dc3e48efb08dd770d6c1",
         "scripts/tsconfig.json": "6bb2af53f7b251328e6117cd4fb761468dc4d4b96085d31a19304ccb73c32cc1",
         "scripts/worker.ts": "1f18ed5ef806982e05e8a40fc217e88257700b28b63cb4acbd647872f85f782b"
       }
@@ -92,7 +103,7 @@
       "source": "addyosmani",
       "path": "skills/constraint-driven-development",
       "files": {
-        "SKILL.md": "dcfe61617087831d46fb3d986bd25eaf963d7a135593b3d7691e3d484b14b5c3",
+        "SKILL.md": "2b3c255e8d6e3f3130c950354f87d4c6cf0305f11db8d18f72114425c2881adb",
         "references/floor-guard.md": "b24459dd17569a1cc12686afb2253d8a47991325310e6e003cba4b384d7535d9",
         "scripts/quality-gate.mjs": "460decdd1365c8bedb2538e9e4b7b248693bd78ea662268b314df4f5907d5fc2"
       }
@@ -101,7 +112,7 @@
       "source": "pstack",
       "path": "skills/engineering-principles",
       "files": {
-        "SKILL.md": "449593344fb52d983757505d37f71cce0566ab9180426e7ff3b25c359d147443"
+        "SKILL.md": "5017d166550b991348c387b697964e46a506a10ab5b3ea7d1929147c818ff8e9"
       }
     },
     "qa": {
@@ -231,6 +242,163 @@
         "references/eval-design-patterns.md": "e968bbe78cc93d34d76d343a29ef6384737a1b132329d724617d1d51a33a938d",
         "references/judge-calibration.md": "7d3a0e0ec0fcac3860f5f5dd8628c1bd55d5fb31c40faa49c301e3d0bcca6732"
       }
+    },
+    "spring-boot": {
+      "source": "youlai",
+      "path": "skills/spring-boot",
+      "files": {
+        "SKILL.md": "a3b4336e6bb4137feb0bd5e327ef662c6a99291da802063c8ae452562f56c60c",
+        "references/authentication.md": "4d1246c7c7e9b11eb50dd1f8fd793703e194a036b05bd4b924af646611df63c9",
+        "references/comments.md": "1025e8628e8ef6f94f980652bd7f49822174e5958c9dd64d65c93b67cdf6e7fe",
+        "references/logging.md": "aca174886ccf7b9c1efef5d7b62251b74ed8abd994f5a0b73cdb3afb3743050d",
+        "references/mapstruct.md": "a2333323dab1d5f51f45791043d90f904c66742047a791145977064cff5d56f2",
+        "references/new-module.md": "0d4304ff15ec1208d1b6df267c46a64c1763f17372f633026aac4c1aafefb07f",
+        "references/project-conventions.md": "beb40fa42a8c576bfb20b14b218a4c8cbb5181d46a33b02e1981e182f25ac02d",
+        "references/transaction.md": "9c5d8f015e8c07e6cd30b8cc92ebe95b00bc6e8fee6627afaada39e0e67ca8fa"
+      }
+    },
+    "django": {
+      "source": "youlai",
+      "path": "skills/django",
+      "files": {
+        "SKILL.md": "c80eb294db219200c86a6364d9bef842f1a8a5218d69eb6268c069d690292405"
+      }
+    },
+    "fastapi": {
+      "source": "youlai",
+      "path": "skills/fastapi",
+      "files": {
+        "SKILL.md": "c0f5ac9f256e2c84051b4dc897eece31b5d4582b554f045ae6388de0b267f649",
+        "references/api-contract.md": "333f9946291a85ab79e0d48b40f45714495856bb30ea6efd82133d3fc1055f20",
+        "references/data-and-auth.md": "be3329743271266291a621cd3ac7b43b6b85d1aac22959d093bc2c619baca158",
+        "references/naming.md": "9618e2958d67e0840f5d7731b8dac37966b91eeaf19c8013902f4bbda3fd9ce4",
+        "references/new-module.md": "776c4e3d1a18ba212193e4b7e93a0890f8965336cf087a65c6fa5585596c7505",
+        "references/project-layout.md": "820f7a88d16dd857b329c6f85d450c89405df56859a46d3b6897298bdc83ec1a",
+        "references/quality.md": "56bbab150814c9989a5511a8fbedc3e543b3ecaf264f77c13dbc23a6e0edfff6"
+      }
+    },
+    "nestjs": {
+      "source": "youlai",
+      "path": "skills/nestjs",
+      "files": {
+        "SKILL.md": "a6c4bbca478f3ddc5d99d7615866fa59a99856478107b7594ca03843a747e24d",
+        "references/architecture.md": "f2c06a4fa071182861a15ec6978fa796a59c1342f6f81dbd5d602f8560d5be7c",
+        "references/auth-security.md": "07ff401d95a95a49f6bd4212b0a45451d2e1a47dcca0f4adb1f7f683d2fbec4f",
+        "references/rest-dto-validation.md": "6d3b4c8098c689ccbfafffe4060b157f80df98e641609408b04c93ead3031c3c",
+        "references/testing-comments.md": "1bf438e2e8208b744b5e72abbdd19a93ecee6233cf8587033541d09fe3ac0bdc",
+        "references/typeorm-transactions.md": "60b4a4283569aae784c4c47bcae5c29eb6181273a0301f548fc2506110f12b33"
+      }
+    },
+    "gin": {
+      "source": "youlai",
+      "path": "skills/gin",
+      "files": {
+        "SKILL.md": "6b45f5bc21570e8688d3f5ae94c2965f1c9975fa4ff5a9e5cef9c47c3ed1c42a"
+      }
+    },
+    "rust": {
+      "source": "youlai",
+      "path": "skills/rust",
+      "files": {
+        "SKILL.md": "ff85b3970457ce2515db5c71122301924d36ed99d9419e1f76e3f8d8fac50919",
+        "references/api-contract.md": "3bd70c47cffe5a208c790e451f8d97d968da8cf3d501ad0acf313d5094a7cc13",
+        "references/data-and-auth.md": "a9b0bb9702927746341e26a634332ef48e845620331d45a1d98e9bcee89486af",
+        "references/naming.md": "f7cd5179174a8b5bdd56238c4530098a116120173a2abad73554e8af11eb1b23",
+        "references/new-module.md": "9d69a8de6013410c9c6cd1dd3e0d4160d4b5ab5745b6809bb45772a7af8ac4de",
+        "references/project-layout.md": "9950815b333ea40b01c3110bc656d099029603c4da7d730a5ccb41ab92ea1c55",
+        "references/quality.md": "482e130376dd562922c514b3bd557c46b4821f1215528649b34699c50b404855"
+      }
+    },
+    "laravel": {
+      "source": "youlai",
+      "path": "skills/laravel",
+      "files": {
+        "SKILL.md": "c5808d249f679a5bf1e40aa8e8d89563917b687f610441b07ab02552ac3f9903",
+        "references/api-contract.md": "bf27511d19133c6309f94678b2e6d325ef6e58386ba7dd49abeef17046f89b3b",
+        "references/data-and-auth.md": "42d9e273741c83f57be031089f61acaf21ac80cda70602780075da8b70c532e9",
+        "references/naming.md": "73514d265e105eed6a2c0f3cc8d9000c0ce75ecb0b293dfdfd48596afda1d553",
+        "references/new-module.md": "9dc4cd4096d1dd84c3d0cb7df7166e04d7aca07f6510a42a2e50219141c74f91",
+        "references/project-layout.md": "fca86df6ae3a026eda6bb6831d4b16df3eee93d7074b0341538042e3502e5871",
+        "references/quality.md": "ffce850e2e6d7a3070f92b34f266b2fc401f4608366f9ac87f0ee810c7ba52e2"
+      }
+    },
+    "aspnet": {
+      "source": "youlai",
+      "path": "skills/aspnet",
+      "files": {
+        "SKILL.md": "6ed864c9b1c976f29bbc3d8f8865ca0db4fcf65c22e5837de0d54574e5cef5e9"
+      }
+    },
+    "thinkphp": {
+      "source": "youlai",
+      "path": "skills/thinkphp",
+      "files": {
+        "SKILL.md": "f0ae6595e2e8c6b84adcd69e407c453deb1eb03b8bc304ea6d8c0319d044284c"
+      }
+    },
+    "uniapp": {
+      "source": "youlai",
+      "path": "skills/uniapp",
+      "files": {
+        "SKILL.md": "bb778ff428cb07f0ef9e59df1dc5aa543ccb754489b4c6688ff8a659dc2b1ae4",
+        "references/comments.md": "0cea56d6a9e0899cff31f8738a244b7805a6bb1798dc521109c1520f739229bf",
+        "references/naming.md": "e62639a139e96b4acc419a7aeec70124e3f69f2c1ae897238ece8b6f8f6cc57a",
+        "references/pages-layout.md": "520206296c2361aa1b3515a5aaaafba57029dad5dfde2035b3999af75ba8fcd9",
+        "references/quality.md": "efedab117bc598ae42c559b77f630be5b57ba084ff70c729f3ed27f3549f021b",
+        "references/session-realtime.md": "7f8c4e163cb7231b31fa355918465f4bd14711d70b88eff4d21bc48287f9312d",
+        "references/styles.md": "a09799bdd5382e0b47aa9a2250eaed44755569ee356fdb80d0b41e3ed68b836f",
+        "references/types-api.md": "43169a0a52453de8af4301834f50a9cccdb1f50e60a5c339063fecdbeed32065"
+      }
+    },
+    "vue3-element-admin": {
+      "source": "youlai",
+      "path": "skills/vue3-element-admin",
+      "files": {
+        "SKILL.md": "26167b13267178265822d1efb56524f9a2854358d75916c7eb9aaf6337f95243",
+        "references/code-conventions.md": "43c30f5d44fe0d5b66ea0ad480831ed19a1ccd6be57024cf2148c30e538b3500",
+        "references/comments.md": "cf63d872dc7033a7002fc70c86ae8591013ddb8b156833939eb648185d55a3ca",
+        "references/components.md": "6ffeb50c53511a1c58377e57d082fb1fa966a09057eb379f4899ba279f2962df",
+        "references/crud-development.md": "f5f472942997027ee1f613e47c9ce9575ebdaa4c476258187ad43edbf1a40cf4",
+        "references/i18n.md": "8227a8ed8fe3a90b75e1a083e9b4f27e06823a8b5e6306747b946d6a62b19da7",
+        "references/new-page-guide.md": "532121dc06214f13fd3c1b2b749804b025dbf22c466fe620e73a9eb9bd20be8d",
+        "references/page-caching.md": "6c67fc360080d392532ad962874618ecb56c86144cd86c3d026af859e77d4102",
+        "references/permission.md": "02ccddccbb3821a467a308ab8f49606a18077886bafbdcbbd94531ca5af285f5",
+        "references/project-config.md": "82bb9dc3209f3fde5df252486e8d576fcd7e3c2e086b54e0abc207830b9c18ac",
+        "references/router-menu.md": "a13ce761059935e1fb64a05417aa456b9155cc9e088a70e8176b5671dc7b6b83",
+        "references/session-and-realtime.md": "2c43b9bc544f30bc933439a44b36fe0cc2c2ac865d6fd5dc20c29f766d53d593"
+      }
+    },
+    "mysql-design": {
+      "source": "youlai",
+      "path": "skills/mysql-design",
+      "files": {
+        "SKILL.md": "7de87067991699b05e02194027022a1f4f90935b6ed6196f372e9a9de29a0efd"
+      }
+    },
+    "doc-standard": {
+      "source": "youlai",
+      "path": "skills/doc-standard",
+      "files": {
+        "SKILL.md": "0cd58fa61d2303963401ddf72ac07d278425490fbc546cac2cde3f3a985d1103",
+        "references/templates.md": "a019a595df18d35c44bee32490d2cdff4a189f90979e197fd9d8b9aacf3ce6f3"
+      }
+    },
+    "blog-writing": {
+      "source": "youlai",
+      "path": "skills/blog-writing",
+      "files": {
+        "SKILL.md": "f26f219c36a393f9afa2fbc65d88fb3c5536a3effbd03a8481f5bb6ca0de80a0",
+        "references/article-types.md": "7e23952726fbc46037ae00fe06a6363fda415c99307ef59ea298f05d8c530a3f",
+        "references/style-guide.md": "00c49249d7980fcd7fda48973d11440c4dc064a592661d12fc0ace7754c93e89",
+        "references/technical-evidence.md": "22f6aff3808192c0759dcdba36687ca33c9ca9a17accbceb41be2f663f6a2a85"
+      }
+    },
+    "git-version": {
+      "source": "youlai",
+      "path": "skills/git-version",
+      "files": {
+        "SKILL.md": "0942cc66fa228121c6a0f5dd5a915c32e83bf28859c06806034a6dccac3e9413"
+      }
     }
   },
   "bundle": {
@@ -250,12 +418,12 @@
     "files": {
       "principle-exhaust-the-design-space.md": "2de83d99f93f60ec6313455b0bc9aa9f0bfb93dd59f414f403691322db00d4db",
       "principle-experience-first.md": "58903529d733b1c1a7c9ccf127d45ef3c7d0d9f0b81164a4dc6b80efe6f2912b",
-      "principle-foundational-thinking.md": "864b827e8199d946ce58beca0f89c4ed4099ed6e426fb698a3aaa45de2a9eea2",
-      "principle-make-operations-idempotent.md": "7aa9327cf1f1aa057e95d47a0a78bd88a8f9d556b608866fee939d455a53a019",
+      "principle-foundational-thinking.md": "5c63eecf4b83ea5a99eda7a95a96cac0929d2dce7393d7089c83917bc12cf820",
+      "principle-make-operations-idempotent.md": "76ad0a99b6ff2a05a159accfeee48412d62f62774eb8d05bbff26a1f3aa3eab5",
       "principle-outcome-oriented-execution.md": "10eb91633aa570355ba4bb37088fcade2b22e498df7a58edc749e65bc5a78e2d",
       "principle-redesign-from-first-principles.md": "170e0a658783e43fee8ec5a8c2422a4abb8f69cef621dd1819a95910b8207034",
-      "principle-separate-before-serializing-shared-state.md": "05294b40448e927c5da1c7b6f5c6b9fed3744637e3833d2d948b9154a9dd00bb",
-      "principle-sequence-verifiable-units.md": "2ccbbacc56ace5afdfb8670cef19d7bd009fb2a0033b9a741cbdf2b6baf72187"
+      "principle-separate-before-serializing-shared-state.md": "2e5625d686b657e0b607c329fd8043bf50261b808239308fe4c6776e2817e95a",
+      "principle-sequence-verifiable-units.md": "ab0cc331cf317c07bb0ed6dd13ee9f618338b36e4e851521977bc5c4a8d429e1"
     }
   }
 }
