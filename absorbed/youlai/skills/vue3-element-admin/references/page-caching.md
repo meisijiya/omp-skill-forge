@@ -22,7 +22,7 @@
 
 ## 刷新与移除
 
-关闭标签时会从 `cachedViews` 移除。刷新当前页通过 redirect 路由完成：先删除缓存，再跳转到 `/redirect` + 原 `fullPath`，由 redirect 页面重新加载。
+关闭标签时会从 `cachedViews` 移除。刷新当前页通过 redirect 路由完成：先删除缓存，再跳转到 redirect 路由 + 原 `fullPath`，由 redirect 页面重新加载。
 
 修改缓存逻辑时至少验证：
 

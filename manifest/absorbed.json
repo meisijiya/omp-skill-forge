@@ -281,7 +281,7 @@
       "source": "youlai",
       "path": "skills/nestjs",
       "files": {
-        "SKILL.md": "a6c4bbca478f3ddc5d99d7615866fa59a99856478107b7594ca03843a747e24d",
+        "SKILL.md": "f9b0e757e016adc84dcb94f1c5f0bf3f5249c4f71c5c71c597cd1f0948ada10b",
         "references/architecture.md": "f2c06a4fa071182861a15ec6978fa796a59c1342f6f81dbd5d602f8560d5be7c",
         "references/auth-security.md": "07ff401d95a95a49f6bd4212b0a45451d2e1a47dcca0f4adb1f7f683d2fbec4f",
         "references/rest-dto-validation.md": "6d3b4c8098c689ccbfafffe4060b157f80df98e641609408b04c93ead3031c3c",
@@ -361,7 +361,7 @@
         "references/crud-development.md": "f5f472942997027ee1f613e47c9ce9575ebdaa4c476258187ad43edbf1a40cf4",
         "references/i18n.md": "8227a8ed8fe3a90b75e1a083e9b4f27e06823a8b5e6306747b946d6a62b19da7",
         "references/new-page-guide.md": "532121dc06214f13fd3c1b2b749804b025dbf22c466fe620e73a9eb9bd20be8d",
-        "references/page-caching.md": "6c67fc360080d392532ad962874618ecb56c86144cd86c3d026af859e77d4102",
+        "references/page-caching.md": "6ead3f8d7195520b3268533941f4813bbee448d4ffa45efdda2ce382f6fcfeec",
         "references/permission.md": "02ccddccbb3821a467a308ab8f49606a18077886bafbdcbbd94531ca5af285f5",
         "references/project-config.md": "82bb9dc3209f3fde5df252486e8d576fcd7e3c2e086b54e0abc207830b9c18ac",
         "references/router-menu.md": "a13ce761059935e1fb64a05417aa456b9155cc9e088a70e8176b5671dc7b6b83",

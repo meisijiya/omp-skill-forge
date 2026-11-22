@@ -11,8 +11,9 @@
   `forge-spring-boot`、`forge-django`、`forge-fastapi`、`forge-nestjs`、`forge-gin`、
   `forge-rust`、`forge-laravel`、`forge-aspnet`、`forge-thinkphp`、`forge-uniapp`、
   `forge-vue3-element-admin`、`forge-mysql-design`、`forge-doc-standard`、
-  `forge-blog-writing`、`forge-git-version`。上游正文没有 harness 残留，改写规则一条没加，
-  收纳副本与上游逐字节一致，只有 frontmatter 的 `name` 换成运行名。
+  `forge-blog-writing`、`forge-git-version`。上游正文没有 harness 残留，只有两处 HTTP 路由
+  写成了斜杠命令的形状（NestJS 的 `/page`、Element Plus 的 `/redirect`），加两条声明式
+  规则改写成中文说法；其余正文与上游逐字节一致，只有 frontmatter 的 `name` 换成运行名。
   许可按同组织其它仓库一致的 Apache-2.0 认定（该仓库自身没有 LICENSE 文件，
   依据写进 [ADR-0020](docs/adr/0020-youlai-skills-absorption.md) 与 `NOTICE.md`）。
   `full` 收全部 15 条，`java-python` 只收与主力栈无关的 `doc-standard`、`blog-writing`、

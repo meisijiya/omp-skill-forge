@@ -215,6 +215,18 @@ RULES = {
         (r"\n {12}--dangerously-skip-permissions\n", "\n            --auto-approve\n",
          "permission flag switched to omp"),
     ],
+    # --- youlai -------------------------------------------------------
+    # The upstream text has no harness residue; the only adaptation needed
+    # is for HTTP routes written in a shape the materializer reads as a
+    # slash command (INV-14: this fork publishes no commands).
+    "youlai/skills/nestjs/SKILL.md": [
+        (r"不强制额外的 `/page`", "不强制额外的分页路由",
+         "HTTP 路径写成了斜杠命令的形状，改成中文说法"),
+    ],
+    "youlai/skills/vue3-element-admin/references/page-caching.md": [
+        (r"再跳转到 `/redirect` \+ 原 `fullPath`", "再跳转到 redirect 路由 + 原 `fullPath`",
+         "HTTP 路径写成了斜杠命令的形状"),
+    ],
 }
 
 

@@ -5,7 +5,7 @@ description: 当用户要开工、要决定读哪条 skill 或派哪个 agent �
 
 # 本 fork 的选路表
 
-本 fork 只保留 ECC 的编程子集加三支收纳资产（上游全量 300+ 技能，本 fork 默认 profile 约 90 个：65 条上游 + 18 条收纳 + 7 条自有）。
+本 fork 只保留 ECC 的编程子集加四支收纳资产（上游全量 300+ 技能，本 fork 默认 profile 约 93 个：65 条上游 + 21 条收纳 + 7 条自有）。
 **本表是本 fork 的选路索引**：模型要读哪个 skill、派哪个 agent，以本表为准，
 不要凭上游 ECC 的记忆猜名字——上游有大量技能没有进本 fork。
 
@@ -231,6 +231,12 @@ description: 当用户要开工、要决定读哪条 skill 或派哪个 agent �
 | 读写 `.ts` / `.tsx` | `skill://forge-typescript-patterns`（仅 full profile；严格编译配置、类型设计与窄化） |
 | 测试从需求到报告整条链路怎么走 | `skill://forge-qa`（收纳自 fishzjp/qa-skills，`forge-core` 是它的共享知识库；`lite` 不收） |
 | 被测对象含 AI 行为，要测不确定性、评测集与 judge 校准 | `skill://forge-ai-system-testing`（同源 QA 套件；`lite` 不收） |
+| 中文技术博客怎么组织、怎么删空话 | `skill://forge-blog-writing`（收纳自 youlaitech/youlai-skills） |
+| 项目使用指南、组件文档与部署说明怎么写 | `skill://forge-doc-standard`（同源） |
+| 提交信息、版本号、标签与变更记录怎么定 | `skill://forge-git-version`（同源） |
+| 某一套具体项目的后端约定（分层、Form/Query/DTO/VO、注释格式） | `skill://forge-spring-boot` `skill://forge-django` `skill://forge-fastapi` `skill://forge-nestjs` `skill://forge-gin` `skill://forge-rust` `skill://forge-laravel` `skill://forge-aspnet`（同源；仅 full profile） |
+| ThinkPHP、uni-app、Element Plus 管理后台 | `skill://forge-thinkphp` `skill://forge-uniapp` `skill://forge-vue3-element-admin`（同源；仅 full profile） |
+| MySQL 表命名、字段与索引约定 | `skill://forge-mysql-design`（同源；仅 full profile） |
 
 ---
 

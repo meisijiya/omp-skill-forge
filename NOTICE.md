@@ -83,11 +83,11 @@ Apache-2.0 §4(b) 要求标注对原作的改动。`youlaitech/youlai-skills` �
 1. **改名**：运行名统一加 `forge-` 前缀（`spring-boot` → `forge-spring-boot`），避免与其它
    插件的同名资产冲突；上游原名保留在 `manifest/absorbed.json` 与 `pool/` 记录里。
 2. **描述替换**：frontmatter 的 `description` 换成中文触发描述（`manifest/skill_descriptions.zh.json`），
-   正文一字未改。
+   正文只改两处——NestJS 的 `` `/page` `` 与 Element Plus 的 `` `/redirect` `` 写成了
+   斜杠命令的形状，改成中文说法（本 fork 不发布命令，不改会被物化器当悬空引用删行）；
+   其余正文一字未改、未翻译、未补写任何内容。
 3. **profile 分流**：`full` 收全部 15 条，`java-python` 只收 `forge-doc-standard`、
    `forge-blog-writing`、`forge-git-version` 三条与 Java/Python 主力栈无关的通用条目。
-
-上游正文未删改、未翻译、未补写任何内容。
 
 ### 许可正文
 

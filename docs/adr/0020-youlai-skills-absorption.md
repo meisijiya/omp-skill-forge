@@ -49,9 +49,11 @@ ThinkPHP、uni-app、Vue 3 + Element Plus 管理后台、MySQL 表设计、项�
    - **这是推断，不是上游声明**：`youlai-skills` 仓库本身没有许可文件。上游若补上
    其它许可或提出异议，按 pin 移除这 15 条即可，机制已经就位（`manifest/absorbed.json`
    删条目 + `sync_absorbed.py` 重放 + 门禁）。
-3. **不改写正文**：`absorbed_fixups.py` 不为该来源加任何规则——上游文本本来就没有
-   需要改的东西，收纳副本与上游逐字节一致，只有 frontmatter 的 `name` 被改成运行名
-   （`forge-spring-boot` 等）。
+3. **只改两处**：上游正文本来就没有需要改的东西，收纳副本与上游逐字节一致，只有
+   frontmatter 的 `name` 被改成运行名（`forge-spring-boot` 等）。例外是两处 HTTP 路由
+   写成了斜杠命令的形状（NestJS 的 `` `/page` ``、Element Plus 的 `` `/redirect` ``），
+   本 fork 不发布命令（ADR-0008），不改会被物化器当成悬空引用整行删掉——两条声明式
+   规则把它们改写成中文说法（`tools/absorbed_fixups.py`）。
 4. **profile 分流**：`full` 收全部 15 条；`java-python` 只收与 Java/Python 主力栈无关的
    三条通用条目 `doc-standard`、`blog-writing`、`git-version`；`lite` 一条不收。
    与技术栈重叠的 9 条先留在 `full`，等逐栈对照表定案后再决定是否进 `java-python`。
