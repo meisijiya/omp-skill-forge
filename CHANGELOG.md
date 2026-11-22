@@ -3,6 +3,19 @@
 本文件记录本插件的对外变更，格式按 Keep-a-Changelog，版本号遵循 SemVer。
 版本号记在 `package.json` 的 `version`，发布 tag 一律用 `v<semver>`。
 
+## [0.7.1] - 2026-11-22
+
+### Fixed
+
+- **ADR-0020 补记与既有约束的冲突**：写清「两条并存」是用户拍板的暂时悬置，范围限在
+  `full` profile（默认 profile 里 ECC 版仍是唯一入口，双入口不进每轮提示），并写明
+  逐栈对照表定案后的两条收尾路径；同时记下本仓首个非 MIT 收纳来源的许可做法与
+  「`youlai-skills` 不是 marketplace 源、没有插件形态替代路线」两条前提。
+- **选路表表头订正**：`forge-router` 的「补缺（收纳资产）」原写「上游 ECC 与 mattpocock
+  都没有对应条目」，但新增三行里 `forge-doc-standard` 与 `forge-git-version` 在 ECC 有
+  邻近条目；改为「大多没有」，并注明与 `forge-docs-governance`、`forge-git-workflow`
+  的分工。
+
 ## [0.7.0] - 2026-11-22
 
 ### Added

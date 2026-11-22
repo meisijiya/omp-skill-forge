@@ -219,7 +219,10 @@ description: 当用户要开工、要决定读哪条 skill 或派哪个 agent �
 ## 补缺（收纳资产）
 
 这几条来自 fork 之外、经改写后随本 fork 发布（来源与 pin 记在 `manifest/absorbed.json`），
-上游 ECC 与 mattpocock 都没有对应条目：
+大多在上游 ECC 与 mattpocock 里没有对应条目。其中三条与 ECC 的邻近条目分工不同，
+别当成重复：`forge-doc-standard` 管「文档怎么写、示例怎么核对」，
+`forge-docs-governance` 管「文档请求怎么路由与只读审计」；`forge-git-version` 管
+「版本号、标签与变更记录」，`forge-git-workflow` 管「分支与提交流程」。
 
 | 要解决的事 | 读什么 |
 | --- | --- |
